@@ -4,7 +4,7 @@ include("dbconfig.php");
 include("admin/includes/dbconnection.php");
 include("model/common.class.php");
 $commonObj=new commonClass();
-
+// login
 if(isset($_POST['login']))
 {
    
