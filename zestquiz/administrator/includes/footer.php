@@ -1,0 +1,1 @@
+<div id="footer-main"><?php echo stripslashes($site_settings_disp->footer_txt); ?><p class="footertext">Powered by <a href="http://iwebcreatives.com"  class="footerlinks" target="_blank">The IwebCreatives</p></div>
