@@ -34,6 +34,9 @@ define('TBL_BLOGCOMMENTS','blog_comments');
 define('TBL_FORUMCATEGORY','forum_category');
 define('TBL_FORUMTOPICS','forum_topics');
 define('TBL_FORUMCOMMENTS','forum_comments');
+define('TBL_CATEGORY','category');
+define('TBL_SUBCATEGORY','subcategory');
+
 define('TBL_STORECATEGORY','store_category');
 define('TBL_STOREPRODUCTS','store_products');
 define('TBL_SUBSCRIBERS','newsletter_subscribers');

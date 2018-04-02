@@ -68,7 +68,7 @@
 		 <li><a href="index.php?option=com_cat">Category</a></li>
 		  <li><a href="index.php?option=com_cat_insert">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&raquo;&nbsp;&nbsp;Add Category</a></li>
 		 <li><a href="index.php?option=com_subcat">Subcategory</a></li>
-		  <li><a href="index.php?option=com_subcat_insert">&nbsp;&raquo;&raquo;&nbsp;&nbsp;Add Subcategory</a></li>
+		  <li><a href="index.php?option=com_subcat_insert">&nbsp;&raquo;&raquo;&nbsp;&nbsp;AddSubcategory</a></li>
 		 <li><a href="index.php?option=com_subject">Subjects</a></li>
 		 <li><a href="index.php?option=com_subject_insert">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&raquo;&nbsp;&nbsp;Add Subject</a></li>
         </ul>

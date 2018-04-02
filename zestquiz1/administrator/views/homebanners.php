@@ -252,7 +252,7 @@ function validate(fld)
 				<td width="94%" align="left" valign="middle"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
 				<tr>
 				<td width="31%"><?php /*?><textarea name="img_desc" id="img_desc" cols="100" rows="2"><?php echo  stripslashes($indivdata->img_desc);?></textarea><?php */?>
-				<?
+				<?php
 				include 'fckeditor/fckeditor.php'; 
 				$sBasePath = 'fckeditor/' ;//to change in web root
 				$oFCKeditor = new FCKeditor('img_desc') ;  //name of the form-field to be generated

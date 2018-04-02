@@ -1,19 +1,19 @@
 <?php 
 include('includes/session.php');
-include("model/store.class.php");
-$storeObj=new storeClass();
+include("model/elearn.class.php");
+$storeObj=new elearnClass();
 if($_GET['action']=="delete"){
-   $storeObj->productsDelete($_GET['id']);
+   $storeObj->subCategoryDelete($_GET['id']);
 }
 if($_POST['admininsert']=="Submit"){
-   $storeObj->insertProducts($_POST);
+   $storeObj->insertsubCategory($_POST);
 }
 if($_POST['admininsert']=="Update"){
-   $storeObj->updateProducts($_POST);
+   $storeObj->updatesubCategory($_POST);
 }
 if(isset($_GET['id']) && $_GET['id']!=""){
    $hdn_value="Update";
-   $indivdata=$storeObj->getProductData($_GET['id']); 
+   $indivdata=$storeObj->getsubCategoryData($_GET['id']); 
    $hdn_in_up='class="button button_save"';
 } else { 
   $hdn_value="Submit";
@@ -34,8 +34,8 @@ if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
 $orderby="ASC";
-$allproductsdisp=$storeObj->getAllProductsList($fldname,$orderby,$start,$limit);
-$total=$storeObj->getAllProductsListCount();
+$allproductsdisp=$storeObj->getAllsubCategoryList($fldname,$orderby,$start,$limit);
+$total=$storeObj->getAllsubCategoryListCount();
 
 if($option!="com_subcat_insert"){
 ?>
@@ -53,7 +53,8 @@ if($option!="com_subcat_insert"){
           <thead>
             <tr height="25">
               <td width="20" align="center" valign="middle">sno</td>
-			   <td width="290" align="left" valign="middle" >Product Name</td>
+              <td width="290" align="left" valign="middle" >Category Name</td>
+			   <td width="290" align="left" valign="middle" >Subcategory Name</td>
               <td width="808" align="left" valign="middle" class="sort">
 					<div >
 					<a href="index.php?option=com_subcat&ord=ASC&fld=prodtitle" class="up" title="up"></a>
@@ -73,8 +74,9 @@ if($option!="com_subcat_insert"){
 					?>
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
+			<td  align="left" valign="middle"><?php echo stripslashes($all_products->scid);?></td>
 			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($all_products->prodtitle);?></td>
-			<td align="left" valign="middle"><img src="../uploads/store/products/<?php echo $all_products->image;?>" height="50" width="50"></td>
+			<td align="left" valign="middle"><img src="../uploads/subcategory/<?php echo $all_products->image;?>" height="50" width="50"></td>
 			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subcat_insert&id=<?php echo $all_products->spid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
 						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_subcat&action=delete&id=<?php echo $all_products->spid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
@@ -205,7 +207,7 @@ return true;
 				<select name="scid" id="scid" class="select_medium required">
 				<option value="">Select</option>
 				<?php
-				$allcategorylist=$storeObj->getAllStoreCategoryList('Active','scid','ASC','','');
+				$allcategorylist=$storeObj->getAllCategoryList('Active','scid','ASC','','');
 				foreach($allcategorylist as $catlist)
 				{
 				?>
@@ -241,7 +243,7 @@ return true;
 				}  
 			   }
 			   </script>
-			    <tr>
+			    <!--tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Special Offer:</label></td>
                 <td width="94%" align="left" valign="middle">
 				<select name="offer" id="offer" class="select_small required" onchange="getofferPrices(this.value)">
@@ -277,7 +279,7 @@ return true;
 <input type="text" id="oldprice" <?=$oldpricdiv?> name="oldprice" class="text_small required" value="<?php echo $oldprice;?>" onfocus="if(this.value=='Old Price'){ value='' }"; onblur="if(this.value==''){ value='Old Price' }"; />&nbsp;
 <input type="text" name="newprice" <?=$newpricediv?> id="newprice" class="text_small required" value="<?php echo $newprice;?>" onfocus="if(this.value=='New Price'){ value='' }"; onblur="if(this.value==''){ value='New Price' }"; />
 				</td>
-			  </tr>
+			  </tr-->
 			   <tr><td colspan="2" height="7"></td></tr>
 			   <tr>
                 <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
@@ -291,7 +293,7 @@ return true;
 				<td width="31%"><input type="file" name="image" size="24"></td>
 				<td width="69%"><?php if($indivdata->image!=""){
 				?>
-				<img src="../uploads/store/products/<?php echo $indivdata->image; ?>" width="185" height="79" />
+				<img src="../uploads/subcategory/<?php echo $indivdata->image; ?>" width="185" height="79" />
 				<input type="hidden" name="hdn_image" size="24" value="<?php echo $indivdata->image; ?>">
 				<?php
 				}

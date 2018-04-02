@@ -7,7 +7,7 @@ $countpages=$userObj->getCountAllTablesDataCount(TPREFIX.TBL_CONTENTPAGES,'page_
 $countimages=$userObj->getCountAllTablesDataCount(TPREFIX.TBL_BANNERS,'id','');
 $countproducts=$userObj->getCountAllTablesDataCount(TPREFIX.TBL_STOREPRODUCTS,'spid','');
 $countnewsevents=$userObj->getCountAllTablesDataCount(TPREFIX.TBL_NEWSEVENTS,'id','');
-$recent=sitesettingsClass::gettenrecentActivitiesList(25);
+$recent=sitesettingsClass::gettenrecentActivitiesList(10);
 ?>
 <!-- <div class="container">
 <div class="row"> -->

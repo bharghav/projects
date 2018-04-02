@@ -1,19 +1,19 @@
 <?php 
 include('includes/session.php');
-include("model/store.class.php");
-$storeObj=new storeClass();
+include("model/elearn.class.php");
+$storeObj=new elearnClass();
 if($_GET['action']=="delete"){
-   $storeObj->storeCategoryDelete($_GET['id']);
+   $storeObj->CategoryDelete($_GET['id']);
 }
 if($_POST['admininsert']=="Submit"){
-   $storeObj->insertStoreCategory($_POST);
+   $storeObj->insertCategory($_POST);
 }
 if($_POST['admininsert']=="Update"){
-   $storeObj->updateStoreCategory($_POST);
+   $storeObj->updateCategory($_POST);
 }
 if(isset($_GET['id']) && $_GET['id']!=""){
    $hdn_value="Update";
-   $indivdata=$storeObj->getStoreCategoryData($_GET['id']); 
+   $indivdata=$storeObj->getCategoryData($_GET['id']); 
    $hdn_in_up='class="button button_save"';
 } else { 
   $hdn_value="Submit";
@@ -34,8 +34,8 @@ if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
 $orderby="DESC";
-$allforumlist=$storeObj->getAllStoreCategoryList('',$fldname,$orderby,$start,$limit);
-$total=$storeObj->getAllStoreCategoryListCount('');
+$allforumlist=$storeObj->getAllCategoryList('',$fldname,$orderby,$start,$limit);
+$total=$storeObj->getAllCategoryListCount('');
 
 if($option!="com_cat_insert"){
 ?>
@@ -75,7 +75,7 @@ if($option!="com_cat_insert"){
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
 			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->catetitle);?></td>
-			<td align="center" valign="middle"><img src="../uploads/store/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td>
+			<td align="center" valign="middle"><img src="../uploads/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td>
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
 			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_cat_insert&id=<?php echo $allforum_list->scid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">

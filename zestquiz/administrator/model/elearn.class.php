@@ -1,96 +1,194 @@
 <?php
-class storeClass
+class elearnClass
 { 
  // store category //
- function getAllStoreCategoryList($where,$sortfield,$order,$start,$limit)
+ function getAllCategoryList($where,$sortfield,$order,$start,$limit)
   {
 	global $callConfig;
 	if($sortfield!="" && $order!="") $order=$sortfield.' '.$order;
 	if($where!="")
 	$whr=" status='".$where."'";
-	$query=$callConfig->selectQuery(TPREFIX.TBL_STORECATEGORY,'*',$whr,$order,$start,$limit);
+	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'*',$whr,$order,$start,$limit);
 	return $callConfig->getAllRows($query);
   } 
-  function getAllStoreCategoryListCount($where)
+  function getAllCategoryListCount($where)
   {
 	global $callConfig;
 	if($where!="")
 	$whr=" status='".$where."'";
-	$query=$callConfig->selectQuery(TPREFIX.TBL_STORECATEGORY,'scid',$whr,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'scid',$whr,'','','');
 	return $callConfig->getCount($query);
   } 
   
-  function getStoreCategoryData($id)
+  function getCategoryData($id)
   {
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_STORECATEGORY,'*','scid='.$id,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'*','scid='.$id,'','','');
 	return $callConfig->getRow($query);
  }
  
-	function insertStoreCategory($post)
+	function insertCategory($post)
 	{
 	global $callConfig;
 	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
-	$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/store/category/","../uploads/store/category/thumbs/",$post['hdn_image'],208,95);
+	$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);
 	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$image,'status'=>$post['status']);
-	$res=$callConfig->insertRecord(TPREFIX.TBL_STORECATEGORY,$fieldnames);
+	$res=$callConfig->insertRecord(TPREFIX.TBL_CATEGORY,$fieldnames);
 	if($res!="")
 	{
-		sitesettingsClass::recentActivities('Store >> Category created successfully on >> '.DATE_TIME_FORMAT.'','g');
-		$callConfig->headerRedirect("index.php?option=com_storecat&err=Store >> Category created successfully");
+		sitesettingsClass::recentActivities('Category >> Category created successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category created successfully");
 	}
 	else
 	{
-		sitesettingsClass::recentActivities('Store >> Category creation failed on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_storecat&ferr=Store >> Category creation failed");
+		sitesettingsClass::recentActivities('Category >> Category creation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category creation failed");
 	}
 	}
 	
-	function updateStoreCategory($post)
+	function updateCategory($post)
 	{
 	global $callConfig;
 	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
-	$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/store/category/","../uploads/store/category/thumbs/",$post['hdn_image'],208,95);
+	$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);
 	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$image,'status'=>$post['status']);
-	$res=$callConfig->updateRecord(TPREFIX.TBL_STORECATEGORY,$fieldnames,'scid',$post['hdn_id']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_CATEGORY,$fieldnames,'scid',$post['hdn_id']);
 	if($res==1)
 	{
-		sitesettingsClass::recentActivities('Store >> Category updated successfully on >> '.DATE_TIME_FORMAT.'','g');
-		$callConfig->headerRedirect("index.php?option=com_storecat&err=Store >> Category updated successfully");
+		sitesettingsClass::recentActivities('Category >> Category updated successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category updated successfully");
 	}
 	else
 	{
-		sitesettingsClass::recentActivities('Store >> Category updation failed on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_storecat&ferr=Store >> Category updation failed");
+		sitesettingsClass::recentActivities('Category >> Category updation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category updation failed");
 	}
 	}
-	function storeCategoryDelete($id)
+	
+	function categoryDelete($id)
 	{
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_STORECATEGORY,'image','scid='.$id,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'image','scid='.$id,'','','');
 	$imageres = $callConfig->getRow($query);
-	$callConfig->imageCommonUnlink("../uploads/store/category/","../uploads/store/category/thumbs/",$imageres->image);
-	$res=$callConfig->deleteRecord(TPREFIX.TBL_STORECATEGORY,'scid',$id);
+	$callConfig->imageCommonUnlink("../uploads/category/","../uploads/category/thumbs/",$imageres->image);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_CATEGORY,'scid',$id);
 	if($res==1)
 	{
-		$query=$callConfig->selectQuery(TPREFIX.TBL_STOREPRODUCTS,'spid,image','scid='.$id,'','','');
+		$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'spid,image','scid='.$id,'','','');
 		$productsres = $callConfig->getAllRows($query);
 		$c=array();
 		foreach($productsres as $res_prod){
 		$c[]=$res_prod->spid;
-		$callConfig->imageCommonUnlink("../uploads/store/products/","../uploads/store/products/thumbs/",$res_prod->image);
+		$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$res_prod->image);
 		}
-		$callConfig->deleteRecord(TPREFIX.TBL_STOREPRODUCTS,'spid',$c);
-		sitesettingsClass::recentActivities('Store >> Category deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_storecat&err=Store >> Category deleted successfully");
+		$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'spid',$c);
+		sitesettingsClass::recentActivities('Category >> Category deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category deleted successfully");
 	}
 	else
 	{
-		sitesettingsClass::recentActivities('Store >> Category deletion failed on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_storecat&ferr=Store >> Category deletion failed");
+		sitesettingsClass::recentActivities('Category >> Category deletion failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category deletion failed");
 	}
 	}
 // end store category //
+// SubCategory //
+function getAllsubCategoryList($sortfield,$order,$start,$limit)
+  {
+	global $callConfig;
+	if($sortfield!="" && $order!="") $order=$sortfield.' '.$order;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','',$order,$start,$limit);
+	return $callConfig->getAllRows($query);
+  } 
+  function getAllsubCategoryListCount()
+  {
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'spid','','','','');
+	 return $callConfig->getCount($query);
+  } 
+  
+  function getsubCategoryData($id)
+  {
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','spid='.$id,'','','');
+	return $callConfig->getRow($query);
+ }
+ 
+	function insertsubCategory($post)
+	{
+	global $callConfig;
+	$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subcategory/","../uploads/subcategory/thumbs/",$post['hdn_image'],179,146);
+	if($post['offer']=="no"){
+	$oldprice="";
+	$newprice=$post['newprice'];
+	} else {
+	$oldprice=$post['oldprice'];
+	$newprice=$post['newprice'];
+	}
+	$titleslug=$callConfig->remove_special_symbols($post['prodtitle']);
+	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$prodimage,'offer'=>$post['offer'],'oldprice'=>$oldprice,'newprice'=>$newprice,'status'=>$post['status']);
+	$res=$callConfig->insertRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames);
+	if($res!="")
+	{
+		sitesettingsClass::recentActivities('SubCategory >> subcategory created successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_subcat&err=SubCategory >> subcategory created successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('SubCategory >> subcategory creation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subcat&ferr=SubCategory >> subcategory creation failed");
+	}
+	}
+	
+	function updatesubCategory($post)
+	{
+	global $callConfig;
+	$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subcategory/","../uploads/subcategory/thumbs/",$post['hdn_image'],179,146);
+	if($post['offer']=="no"){
+	$oldprice="";
+	$newprice=$post['newprice'];
+	} else {
+	$oldprice=$post['oldprice'];
+	$newprice=$post['newprice'];
+	}
+	$titleslug=$callConfig->remove_special_symbols($post['prodtitle']);
+	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$prodimage,'offer'=>$post['offer'],'oldprice'=>$oldprice,'newprice'=>$newprice,'status'=>$post['status']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames,'spid',$post['hdn_id']);
+	if($res==1)
+	{
+		sitesettingsClass::recentActivities('SubCategory >> subcategory updated successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_subcat&err=SubCategory >> subcategory updated successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('SubCategory >> subcategory updation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subcat&ferr=SubCategory >> subcategory updation failed");
+	}
+	}
+	
+	function subCategoryDelete($id)
+	{
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'image','spid='.$id,'','','');
+	$imageres = $callConfig->getRow($query);
+	$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$imageres->image);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'spid',$id);
+	if($res==1)
+	{
+		sitesettingsClass::recentActivities('SubCategory >> subcategory deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subcat&err=SubCategory >> subcategory deleted successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('SubCategory >> subcategory deletion failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subcat&ferr=SubCategory >> subcategory deletion failed");
+	}
+	}
+
+
+
+// end sub category //
+
 
  // Product store //
  function getAllProductsList($sortfield,$order,$start,$limit)

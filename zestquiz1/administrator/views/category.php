@@ -162,7 +162,7 @@ return true;
 <div class="heading">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td align="left" valign="middle"> <h1><img src="allfiles/map.jpeg" alt=""> Store &nbsp;&nbsp;>>&nbsp;&nbsp; Add Category &nbsp;&nbsp;/&nbsp;&nbsp; Edit Category</h1></td>
+<td align="left" valign="middle"> <h1><img src="allfiles/map.jpeg" alt=""> E-learning &nbsp;&nbsp;>>&nbsp;&nbsp; Add Category &nbsp;&nbsp;/&nbsp;&nbsp; Edit Category</h1></td>
 <td align="right" valign="bottom">&nbsp;</td>
 </tr>
 </table>
