@@ -202,7 +202,7 @@ if($option!="com_pagelist_insert")
 				   <tr>
                 <td align="left" valign="top" class="caption-field"><label class="title">Content:</label></td>
 				<td align="left" valign="middle" class="caption-field"> 
-				<?
+				<?php
 				include 'fckeditor/fckeditor.php'; 
 				$sBasePath = 'fckeditor/' ;//to change in web root
 				$oFCKeditor = new FCKeditor('content') ;  //name of the form-field to be generated
