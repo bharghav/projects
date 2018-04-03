@@ -20,7 +20,7 @@ define(DBNAME,"thesu34_superteens");*/
 ###################################################################
 
 /********* Table Prefix *********/
-define('TPREFIX', 'tb_');
+define('TPREFIX', 'tb_'); 
 
 /********* Table Names *********/
 define('TBL_ADMIN','admin');
