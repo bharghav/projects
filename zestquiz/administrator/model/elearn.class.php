@@ -31,8 +31,8 @@ class elearnClass
 	{
 	global $callConfig;
 	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
-	$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);
-	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$image,'status'=>$post['status']);
+	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
+	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
 	$res=$callConfig->insertRecord(TPREFIX.TBL_CATEGORY,$fieldnames);
 	if($res!="")
 	{
@@ -50,8 +50,8 @@ class elearnClass
 	{
 	global $callConfig;
 	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
-	$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);
-	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$image,'status'=>$post['status']);
+	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
+	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
 	$res=$callConfig->updateRecord(TPREFIX.TBL_CATEGORY,$fieldnames,'scid',$post['hdn_id']);
 	if($res==1)
 	{
@@ -68,9 +68,9 @@ class elearnClass
 	function categoryDelete($id)
 	{
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'image','scid='.$id,'','','');
-	$imageres = $callConfig->getRow($query);
-	$callConfig->imageCommonUnlink("../uploads/category/","../uploads/category/thumbs/",$imageres->image);
+	//$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'image','scid='.$id,'','','');
+	//$imageres = $callConfig->getRow($query);
+	//$callConfig->imageCommonUnlink("../uploads/category/","../uploads/category/thumbs/",$imageres->image);
 	$res=$callConfig->deleteRecord(TPREFIX.TBL_CATEGORY,'scid',$id);
 	if($res==1)
 	{
@@ -117,16 +117,16 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	function insertsubCategory($post)
 	{
 	global $callConfig;
-	$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subcategory/","../uploads/subcategory/thumbs/",$post['hdn_image'],179,146);
-	if($post['offer']=="no"){
+	//$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subcategory/","../uploads/subcategory/thumbs/",$post['hdn_image'],179,146);'image'=>$prodimage,'offer'=>$post['offer'],'oldprice'=>$oldprice,'newprice'=>$newprice,
+	/*if($post['offer']=="no"){
 	$oldprice="";
 	$newprice=$post['newprice'];
 	} else {
 	$oldprice=$post['oldprice'];
 	$newprice=$post['newprice'];
-	}
+	}*/
 	$titleslug=$callConfig->remove_special_symbols($post['prodtitle']);
-	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$prodimage,'offer'=>$post['offer'],'oldprice'=>$oldprice,'newprice'=>$newprice,'status'=>$post['status']);
+	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
 	$res=$callConfig->insertRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames);
 	if($res!="")
 	{
@@ -143,16 +143,16 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	function updatesubCategory($post)
 	{
 	global $callConfig;
-	$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subcategory/","../uploads/subcategory/thumbs/",$post['hdn_image'],179,146);
+	/*$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subcategory/","../uploads/subcategory/thumbs/",$post['hdn_image'],179,146);'image'=>$prodimage,'offer'=>$post['offer'],'oldprice'=>$oldprice,'newprice'=>$newprice,
 	if($post['offer']=="no"){
 	$oldprice="";
 	$newprice=$post['newprice'];
 	} else {
 	$oldprice=$post['oldprice'];
 	$newprice=$post['newprice'];
-	}
+	}*/
 	$titleslug=$callConfig->remove_special_symbols($post['prodtitle']);
-	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'image'=>$prodimage,'offer'=>$post['offer'],'oldprice'=>$oldprice,'newprice'=>$newprice,'status'=>$post['status']);
+	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
 	$res=$callConfig->updateRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames,'spid',$post['hdn_id']);
 	if($res==1)
 	{
@@ -171,7 +171,7 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	global $callConfig;
 	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'image','spid='.$id,'','','');
 	$imageres = $callConfig->getRow($query);
-	$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$imageres->image);
+	//$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$imageres->image);
 	$res=$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'spid',$id);
 	if($res==1)
 	{
@@ -189,6 +189,101 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 
 // end sub category //
 
+//subjects //
+
+// Product store //
+ function getAllSubjectsList($sortfield,$order,$start,$limit)
+  {
+	global $callConfig;
+	if($sortfield!="" && $order!="") $order=$sortfield.' '.$order;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'*','',$order,$start,$limit);
+	return $callConfig->getAllRows($query);
+  } 
+  function getAllSubjectsListCount()
+  {
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'spid','','','','');
+	 return $callConfig->getCount($query);
+  } 
+  
+  function getSubjectData($id)
+  {
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'*','spid='.$id,'','','');
+	return $callConfig->getRow($query);
+ }
+ 
+	function insertSubjects($post)
+	{
+	global $callConfig;
+	//$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subjects/","../uploads/subjects/thumbs/",$post['hdn_image'],179,146);
+	/*if($post['offer']=="no"){
+	$oldprice="";
+	$newprice=$post['newprice'];
+	} else {
+	$oldprice=$post['oldprice'];
+	$newprice=$post['newprice'];
+	}*/
+	$titleslug=$callConfig->remove_special_symbols($post['subjtitle']);
+	$fieldnames=array('scid'=>$post['scid'],'cid'=>$post['category'],'scid'=>$post['subcategory'],'subjtitle'=>mysql_real_escape_string($post['subjtitle']),'subjtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$res=$callConfig->insertRecord(TPREFIX.TBL_SUBJECTS,$fieldnames);
+	if($res!="")
+	{
+		sitesettingsClass::recentActivities('Store >> Subjects created successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_subject&err=Store >> Subjects created successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('Store >> Subjects creation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subject&ferr=Store >> Subjects creation failed");
+	}
+	}
+	
+	function updateSubjects($post)
+	{
+	global $callConfig;
+	/*$prodimage = $callConfig->freeimageUploadcomncode('prod','image',"../uploads/subjects/","../uploads/subjects/thumbs/",$post['hdn_image'],179,146);
+	if($post['offer']=="no"){
+	$oldprice="";
+	$newprice=$post['newprice'];
+	} else {
+	$oldprice=$post['oldprice'];
+	$newprice=$post['newprice'];
+	}*/
+	$titleslug=$callConfig->remove_special_symbols($post['subjtitle']);
+	$fieldnames=array('scid'=>$post['scid'],'cid'=>$post['category'],'scid'=>$post['subcategory'],'subjtitle'=>mysql_real_escape_string($post['subjtitle']),'subjtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_SUBJECTS,$fieldnames,'spid',$post['hdn_id']);
+	if($res==1)
+	{
+		sitesettingsClass::recentActivities('Store >> Product updated successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_subject&err=Store >> Product updated successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('Store >> Subjects updation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subject&ferr=Store >> Subjects updation failed");
+	}
+	}
+	function subjectsDelete($id)
+	{
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'image','spid='.$id,'','','');
+	$imageres = $callConfig->getRow($query);
+	$callConfig->imageCommonUnlink("../uploads/subjects/","../uploads/subjects/thumbs/",$imageres->image);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_STOREPRODUCTS,'spid',$id);
+	if($res==1)
+	{
+		sitesettingsClass::recentActivities('Store >> Subjects deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subject&err=Store >> Subjects deleted successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('Store >> Subjects deletion failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_subject&ferr=Store >> Subjects deletion failed");
+	}
+	}
+
+//end of the subjects//
 
  // Product store //
  function getAllProductsList($sortfield,$order,$start,$limit)

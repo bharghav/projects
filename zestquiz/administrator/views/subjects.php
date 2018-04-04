@@ -1,19 +1,19 @@
 <?php 
 include('includes/session.php');
-include("model/store.class.php");
-$storeObj=new storeClass();
+include("model/elearn.class.php");
+$storeObj=new elearnClass();
 if($_GET['action']=="delete"){
-   $storeObj->storeCategoryDelete($_GET['id']);
+   $storeObj->subjectsDelete($_GET['id']);
 }
 if($_POST['admininsert']=="Submit"){
-   $storeObj->insertStoreCategory($_POST);
+   $storeObj->insertSubjects($_POST);
 }
 if($_POST['admininsert']=="Update"){
-   $storeObj->updateStoreCategory($_POST);
+   $storeObj->updateSubjects($_POST);
 }
 if(isset($_GET['id']) && $_GET['id']!=""){
    $hdn_value="Update";
-   $indivdata=$storeObj->getStoreCategoryData($_GET['id']); 
+   $indivdata=$storeObj->getSubjectData($_GET['id']); 
    $hdn_in_up='class="button button_save"';
 } else { 
   $hdn_value="Submit";
@@ -34,8 +34,8 @@ if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
 $orderby="DESC";
-$allforumlist=$storeObj->getAllStoreCategoryList('',$fldname,$orderby,$start,$limit);
-$total=$storeObj->getAllStoreCategoryListCount('');
+$allforumlist=$storeObj->getAllSubjectsList('',$fldname,$orderby,$start,$limit);
+$total=$storeObj->getAllSubjectsListCount('');
 
 if($option!="com_subject_insert"){
 ?>
@@ -53,14 +53,16 @@ if($option!="com_subject_insert"){
           <thead>
             <tr height="25">
               <td width="20" align="center" valign="middle">sno</td>
-			   <td width="227" align="left" valign="middle" >title</td>
+              <td width="100" align="left" valign="middle" >category</td>
+              <td width="100" align="left" valign="middle" >subcategory</td>
+			   <td width="100" align="left" valign="middle" >title</td>
               <td width="750" align="left" valign="middle" class="sort">
 					<div >
 					<a href="index.php?option=com_subject&ord=ASC&fld=catetitle" class="up" title="up"></a>
 					<a href="index.php?option=com_subject&ord=DESC&fld=catetitle" class="down" title="down"></a>
 					</div>
 </td>
- <td width="116" align="center" valign="middle" >Image</td>
+<!--  <td width="116" align="center" valign="middle" >Image</td> -->
 			  <td width="45" align="center" valign="middle" >Status</td>
               <td width="33" align="center" valign="middle" >Edit</td>
 			  <td width="40" align="center" valign="middle" >Delete</td>
@@ -74,8 +76,10 @@ if($option!="com_subject_insert"){
 					?>
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
-			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->catetitle);?></td>
-			<td align="center" valign="middle"><img src="../uploads/store/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td>
+			<td  align="left" valign="middle"><?php echo stripslashes($allforum_list->cat);?></td>
+			<td  align="left" valign="middle"><?php echo stripslashes($allforum_list->subcat);?></td>
+			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->subjtitle);?></td>
+			<!-- <td align="center" valign="middle"><img src="../uploads/subjects/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> -->
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
 			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subject_insert&id=<?php echo $allforum_list->scid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
@@ -120,11 +124,25 @@ return stringToTrim.replace(/^\s+|\s+$/g,"");
 }
 function validate(fld)
 {
-	if(trim(document.frmCreatestate.catetitle.value)=="")
+	if(trim(document.frmCreatestate.category.value)=="")
 	{ 
-		alert("Please enter Category title");
-		document.frmCreatestate.catetitle.value='';
-		document.frmCreatestate.catetitle.focus();
+		alert("Please select category title");
+		document.frmCreatestate.category.value='';
+		document.frmCreatestate.category.focus();
+		return false;
+	}
+	if(trim(document.frmCreatestate.subcategory.value)=="")
+	{ 
+		alert("Please select Subcategory title");
+		document.frmCreatestate.subcategory.value='';
+		document.frmCreatestate.subcategory.focus();
+		return false;
+	}
+	if(trim(document.frmCreatestate.subjtitle.value)=="")
+	{ 
+		alert("Please enter Subject title");
+		document.frmCreatestate.subjtitle.value='';
+		document.frmCreatestate.subjtitle.focus();
 		return false;
 	}
 		if(trim(document.frmCreatestate.bigtext.value)=="")
@@ -136,7 +154,7 @@ function validate(fld)
 	}
 
 	
-	var imagehdnval="<?=$indivdata->image?>";
+	/*var imagehdnval="<?=$indivdata->image?>";
 	if(imagehdnval=="")
 	{
 		if(trim(document.frmCreatestate.image.value)=="")
@@ -153,7 +171,7 @@ function validate(fld)
 		fld.focus();
 		return false;
 		}
-	}
+	}*/
 	
 return true;
 }
@@ -171,15 +189,77 @@ return true;
 <form action="index.php?option=com_subject_insert" method="post" id="frmCreatestate" name="frmCreatestate" class="middle_form" enctype="multipart/form-data" onsubmit="return validate(this.image);">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" >
 	<tr>
+                <td width="6%" align="left" class="caption-field"><label class="title">Category :</label></td>
+                <td width="94%" align="left" valign="middle">
+				<select name="category" id="category" class="select_medium required">
+				<option value="">Select</option>
+				<?php
+				$allcategorylist=$storeObj->getAllCategoryList('Active','scid','ASC','','');
+				foreach($allcategorylist as $catlist)
+				{
+				?>
+				<option value="<?php echo $catlist->scid;?>"><?php echo stripslashes($catlist->catetitle);?></option>
+				<?php
+				}
+				?>
+				</select>
+				<script type="text/javascript">
+                for(var i=0;i<document.getElementById('category').length;i++)
+                {
+						if(document.getElementById('category').options[i].value=="<?php echo $indivdata->category ?>")
+						{
+						document.getElementById('category').options[i].selected=true
+						}
+                }			
+                </script></td>
+			  </tr>
+			  <tr><td colspan="2" height="7"></td></tr>
+			  <tr>
+                <td width="6%" align="left" class="caption-field"><label class="title">Sub Category :</label></td>
+                <td width="94%" align="left" valign="middle">
+				<select name="subcategory" id="subcategory" class="select_medium required">
+				<option value="">Select</option>
+				<?php
+				$allsubcategorylist=$storeObj->getAllsubCategoryList('Active','scid','ASC','','');
+				foreach($allsubcategorylist as $subcatlist)
+				{
+				?>
+				<option value="<?php echo $subcatlist->spid;?>"><?php echo stripslashes($subcatlist->prodtitle);?></option>
+				<?php
+				}
+				?>
+				</select>
+				<script type="text/javascript">
+                for(var i=0;i<document.getElementById('subcategory').length;i++)
+                {
+						if(document.getElementById('subcategory').options[i].value=="<?php echo $indivdata->subcategory ?>")
+						{
+						document.getElementById('subcategory').options[i].selected=true
+						}
+                }			
+                </script></td>
+			  </tr>
+			  <tr><td colspan="2" height="7"></td></tr>
+	<tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Title:</label></td>
-                <td width="94%" align="left" valign="middle"><input name="catetitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->catetitle);?>" style="width:800px;"/></td>
+                <td width="94%" align="left" valign="middle"><input name="subjtitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->subjtitle);?>" style="width:800px;"/></td>
 	</tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 			    <tr>
                 <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
                 <td align="left" valign="middle" class="caption-field"><textarea name="bigtext" id="bigtext" cols="150" rows="2"><?php echo  stripslashes($indivdata->bigtext);?></textarea></td>
 				</tr>
-				 <tr><td colspan="2" height="7"></td></tr>
+				<tr><td colspan="2" height="7"></td></tr>
+			    <!-- <tr>
+                <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
+                <td align="left" valign="middle" class="caption-field"><input name="category" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->category);?>" style="width:800px;"/></td>
+				</tr>
+				<tr><td colspan="2" height="7"></td></tr>
+			    <tr>
+                <td align="left" valign="top" class="caption-field"><label class="title">subcategory:</label></td>
+                <td align="left" valign="middle" class="caption-field"><input name="subcategory" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->subcategory);?>" style="width:800px;"/></td>
+				</tr> -->
+				 <!-- <tr><td colspan="2" height="7"></td></tr>
 				 <tr>
 				<td width="6%" align="left" valign="top" class="caption-field"><label class="title">Image:</label></td>
 				<td width="94%" align="left" valign="middle"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
@@ -196,7 +276,7 @@ return true;
 				</td>
 				</tr>
 				</table></td>
-				</tr>
+				</tr> -->
 			   
 				<tr><td colspan="2" height="7"></td></tr>
 				<tr>

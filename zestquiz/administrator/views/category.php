@@ -60,7 +60,7 @@ if($option!="com_cat_insert"){
 					<a href="index.php?option=com_cat&ord=DESC&fld=catetitle" class="down" title="down"></a>
 					</div>
 </td>
- <td width="116" align="center" valign="middle" >Image</td>
+ <!-- <td width="116" align="center" valign="middle" >Image</td> -->
 			  <td width="45" align="center" valign="middle" >Status</td>
               <td width="33" align="center" valign="middle" >Edit</td>
 			  <td width="40" align="center" valign="middle" >Delete</td>
@@ -75,7 +75,7 @@ if($option!="com_cat_insert"){
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
 			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->catetitle);?></td>
-			<td align="center" valign="middle"><img src="../uploads/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td>
+			<!-- <td align="center" valign="middle"><img src="../uploads/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> -->
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
 			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_cat_insert&id=<?php echo $allforum_list->scid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
@@ -136,7 +136,7 @@ function validate(fld)
 	}
 
 	
-	var imagehdnval="<?=$indivdata->image?>";
+	/*var imagehdnval="<?=$indivdata->image?>";
 	if(imagehdnval=="")
 	{
 		if(trim(document.frmCreatestate.image.value)=="")
@@ -153,7 +153,7 @@ function validate(fld)
 		fld.focus();
 		return false;
 		}
-	}
+	}*/
 	
 return true;
 }
@@ -179,24 +179,24 @@ return true;
                 <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
                 <td align="left" valign="middle" class="caption-field"><textarea name="bigtext" id="bigtext" cols="150" rows="2"><?php echo  stripslashes($indivdata->bigtext);?></textarea></td>
 				</tr>
-				 <tr><td colspan="2" height="7"></td></tr>
-				 <tr>
+				<!-- <tr><td colspan="2" height="7"></td></tr>
+				  <tr>
 				<td width="6%" align="left" valign="top" class="caption-field"><label class="title">Image:</label></td>
 				<td width="94%" align="left" valign="middle"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-				<tr>
+				 <tr>
 				<td width="31%"><input type="file" name="image" size="24"></td>
 				<td width="69%"><?php if($indivdata->image!=""){
 				?>
-				<img src="../uploads/store/category/<?php echo $indivdata->image; ?>" width="185" height="79" />
+				<img src="../uploads/category/<?php echo $indivdata->image; ?>" width="185" height="79" />
 				<input type="hidden" name="hdn_image" size="24" value="<?php echo $indivdata->image; ?>">
 				<?php
 				}
 				?>
 				<small> *Please upload image size WIDTH ( min - 100, max - 150 ) and HEIGHT ( min - 90, max - 130 )</small>
 				</td>
-				</tr>
+				</tr> 
 				</table></td>
-				</tr>
+				</tr> -->
 			   
 				<tr><td colspan="2" height="7"></td></tr>
 				<tr>

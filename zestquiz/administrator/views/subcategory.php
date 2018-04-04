@@ -61,7 +61,7 @@ if($option!="com_subcat_insert"){
 					<a href="index.php?option=com_subcat&ord=DESC&fld=prodtitle" class="down" title="down"></a>
 					</div>
 </td>
-			   <td width="290" align="left" valign="middle" >Image</td>
+			   <!-- <td width="290" align="left" valign="middle" >Image</td> -->
               <td width="35" align="center" valign="middle" >Edit</td>
 			  <td width="35" align="center" valign="middle" >Delete</td>
             </tr>
@@ -76,7 +76,7 @@ if($option!="com_subcat_insert"){
 			<td align="center" valign="middle"><?=($ii+1);?></td>
 			<td  align="left" valign="middle"><?php echo stripslashes($all_products->scid);?></td>
 			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($all_products->prodtitle);?></td>
-			<td align="left" valign="middle"><img src="../uploads/subcategory/<?php echo $all_products->image;?>" height="50" width="50"></td>
+			<!-- <td align="left" valign="middle"><img src="../uploads/subcategory/<?php echo $all_products->image;?>" height="50" width="50"></td> -->
 			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subcat_insert&id=<?php echo $all_products->spid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
 						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_subcat&action=delete&id=<?php echo $all_products->spid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
@@ -173,7 +173,7 @@ function validate(fld)
 	}
 
 	
-	var imagehdnval="<?=$indivdata->image?>";
+	/*var imagehdnval="<?=$indivdata->image?>";
 	if(imagehdnval=="")
 	{
 		if(document.frmCreatestate.image.value=="")
@@ -184,7 +184,7 @@ function validate(fld)
 		return false;
 		}
 	
-	}
+	}*/
 	
 return true;
 }
@@ -285,7 +285,7 @@ return true;
                 <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
                 <td align="left" valign="middle" class="caption-field"><textarea name="bigtext" id="bigtext" cols="150" rows="2"><?php echo  stripslashes($indivdata->bigtext);?></textarea></td>
 				</tr>
-				 <tr><td colspan="2" height="7"></td></tr>
+				<!--  <tr><td colspan="2" height="7"></td></tr>
 			   <tr>
 				<td width="6%" align="left" valign="top" class="caption-field"><label class="title">Image :</label></td>
 				<td width="94%" align="left" valign="middle"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
@@ -302,7 +302,7 @@ return true;
 				</td>
 				</tr>
 				</table></td>
-				</tr>
+				</tr> -->
 				<tr><td colspan="2" height="7"></td></tr>
 				<tr>
                 <td align="left" class="caption-field"><label class="title">Status :</label> </td>

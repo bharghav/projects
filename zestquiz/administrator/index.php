@@ -20,8 +20,8 @@ include("includes/controller.php");
 <style type="text/css">
 	.alert-message
 {
-    margin: 20px 0;
-    padding: 20px;
+    margin: 10px 0;
+    padding: 10px;
     border-left: 3px solid #eee;
 }
 .alert-message h4
