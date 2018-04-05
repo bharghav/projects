@@ -16,14 +16,14 @@ class elearnClass
 	global $callConfig;
 	if($where!="")
 	$whr=" status='".$where."'";
-	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'scid',$whr,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'cid',$whr,'','','');
 	return $callConfig->getCount($query);
   } 
   
   function getCategoryData($id)
   {
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'*','scid='.$id,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'*','cid='.$id,'','','');
 	return $callConfig->getRow($query);
  }
  
@@ -52,7 +52,7 @@ class elearnClass
 	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
 	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
-	$res=$callConfig->updateRecord(TPREFIX.TBL_CATEGORY,$fieldnames,'scid',$post['hdn_id']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_CATEGORY,$fieldnames,'cid',$post['hdn_id']);
 	if($res==1)
 	{
 		sitesettingsClass::recentActivities('Category >> Category updated successfully on >> '.DATE_TIME_FORMAT.'','g');
@@ -71,7 +71,7 @@ class elearnClass
 	//$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'image','scid='.$id,'','','');
 	//$imageres = $callConfig->getRow($query);
 	//$callConfig->imageCommonUnlink("../uploads/category/","../uploads/category/thumbs/",$imageres->image);
-	$res=$callConfig->deleteRecord(TPREFIX.TBL_CATEGORY,'scid',$id);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_CATEGORY,'cid',$id);
 	if($res==1)
 	{
 		$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'spid,image','scid='.$id,'','','');
@@ -103,16 +103,23 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
   function getAllsubCategoryListCount()
   {
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'spid','','','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'scatid','','','','');
 	 return $callConfig->getCount($query);
   } 
   
   function getsubCategoryData($id)
   {
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','spid='.$id,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','scatid='.$id,'','','');
 	return $callConfig->getRow($query);
- }
+  }
+
+  function getsubCategoryAllData($id)
+  {
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','scatid='.$id,'','','');
+	return $callConfig->getAllRows($query);
+  }
  
 	function insertsubCategory($post)
 	{
@@ -125,8 +132,8 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	$oldprice=$post['oldprice'];
 	$newprice=$post['newprice'];
 	}*/
-	$titleslug=$callConfig->remove_special_symbols($post['prodtitle']);
-	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$titleslug=$callConfig->remove_special_symbols($post['subcattitle']);
+	$fieldnames=array('cid'=>$post['cid'],'subcattitle'=>mysql_real_escape_string($post['subcattitle']),'subcattitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
 	$res=$callConfig->insertRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames);
 	if($res!="")
 	{
@@ -151,9 +158,9 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	$oldprice=$post['oldprice'];
 	$newprice=$post['newprice'];
 	}*/
-	$titleslug=$callConfig->remove_special_symbols($post['prodtitle']);
-	$fieldnames=array('scid'=>$post['scid'],'prodtitle'=>mysql_real_escape_string($post['prodtitle']),'prodtitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
-	$res=$callConfig->updateRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames,'spid',$post['hdn_id']);
+	$titleslug=$callConfig->remove_special_symbols($post['subcattitle']);
+	$fieldnames=array('cid'=>$post['cid'],'subcattitle'=>mysql_real_escape_string($post['subcattitle']),'subcattitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_SUBCATEGORY,$fieldnames,'scatid',$post['hdn_id']);
 	if($res==1)
 	{
 		sitesettingsClass::recentActivities('SubCategory >> subcategory updated successfully on >> '.DATE_TIME_FORMAT.'','g');
@@ -169,10 +176,10 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	function subCategoryDelete($id)
 	{
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'image','spid='.$id,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'image','scatid='.$id,'','','');
 	$imageres = $callConfig->getRow($query);
 	//$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$imageres->image);
-	$res=$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'spid',$id);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'scatid',$id);
 	if($res==1)
 	{
 		sitesettingsClass::recentActivities('SubCategory >> subcategory deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
@@ -267,10 +274,10 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	function subjectsDelete($id)
 	{
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'image','spid='.$id,'','','');
-	$imageres = $callConfig->getRow($query);
-	$callConfig->imageCommonUnlink("../uploads/subjects/","../uploads/subjects/thumbs/",$imageres->image);
-	$res=$callConfig->deleteRecord(TPREFIX.TBL_STOREPRODUCTS,'spid',$id);
+	//$query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'image','spid='.$id,'','','');
+	//$imageres = $callConfig->getRow($query);
+	//$callConfig->imageCommonUnlink("../uploads/subjects/","../uploads/subjects/thumbs/",$imageres->image);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_SUBJECTS,'spid',$id);
 	if($res==1)
 	{
 		sitesettingsClass::recentActivities('Store >> Subjects deleted successfully on >> '.DATE_TIME_FORMAT.'','e');

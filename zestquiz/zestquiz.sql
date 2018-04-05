@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2018 at 09:35 PM
+-- Generation Time: Apr 05, 2018 at 01:32 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -442,22 +442,23 @@ INSERT INTO `tb_cart_transcation` (`tx_id`, `tx_no`, `reg_id`, `item`, `shiptota
 --
 
 CREATE TABLE IF NOT EXISTS `tb_category` (
-  `scid` int(11) NOT NULL AUTO_INCREMENT,
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
   `catetitle` varchar(250) NOT NULL,
   `catetitle_slug` varchar(250) NOT NULL,
   `bigtext` varchar(250) NOT NULL,
   `image` varchar(250) NOT NULL,
   `status` enum('Active','Inactive') NOT NULL,
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`scid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`cid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tb_category`
 --
 
-INSERT INTO `tb_category` (`scid`, `catetitle`, `catetitle_slug`, `bigtext`, `image`, `status`, `createdon`) VALUES
-(1, 'category 1', 'category-1', 'category 1', 'cat_15226954295ac27d05543b0.jpg', 'Active', '2018-04-02 18:57:09');
+INSERT INTO `tb_category` (`cid`, `catetitle`, `catetitle_slug`, `bigtext`, `image`, `status`, `createdon`) VALUES
+(1, 'Class 1', 'class-1', 'Class 1', 'cat_15226954295ac27d05543b0.jpg', 'Active', '2018-04-02 18:57:09'),
+(2, 'Class2', 'class2', 'class 2', '', 'Active', '2018-04-04 11:58:36');
 
 -- --------------------------------------------------------
 
@@ -705,38 +706,38 @@ CREATE TABLE IF NOT EXISTS `tb_recentactivities` (
   `date_time` varchar(30) NOT NULL,
   `type` enum('g','e') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1974 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2007 ;
 
 --
 -- Dumping data for table `tb_recentactivities`
 --
 
 INSERT INTO `tb_recentactivities` (`id`, `matter`, `date_time`, `type`) VALUES
-(1967, 'Store >> Category deleted successfully on >> Monday 02nd April 2018, 19:58:19 PM', '1522691899', 'e'),
-(1968, 'admin >> login sucessfully on >> Monday 02nd April 2018, 20:43:23 PM', '1522694603', 'g'),
-(1969, 'Store >> Category created successfully on >> Monday 02nd April 2018, 20:48:49 PM', '1522694929', 'g'),
-(1970, 'Category >> Category created successfully on >> Monday 02nd April 2018, 20:57:09 PM', '1522695429', 'g'),
-(1971, 'SubCategory >> subcategory creation failed on >> Monday 02nd April 2018, 20:59:21 PM', '1522695561', 'e'),
-(1972, 'SubCategory >> subcategory creation failed on >> Monday 02nd April 2018, 21:01:58 PM', '1522695718', 'e'),
-(1973, 'SubCategory >> subcategory created successfully on >> Monday 02nd April 2018, 21:06:04 PM', '1522695964', 'g'),
-(1949, 'Admin User deleted successfully on >> Saturday 31st March 2018, 18:48:20 PM', '1522514900', 'e'),
-(1950, 'Admin User deleted successfully on >> Saturday 31st March 2018, 18:48:57 PM', '1522514937', 'e'),
-(1951, 'Page updated successfully on >> Saturday 31st March 2018, 18:52:53 PM', '1522515173', 'g'),
-(1952, 'Page updated successfully on >> Saturday 31st March 2018, 18:53:58 PM', '1522515238', 'g'),
-(1953, 'Page deleted successfully on >> Saturday 31st March 2018, 18:54:17 PM', '1522515257', 'e'),
-(1954, 'Page deleted successfully on >> Saturday 31st March 2018, 18:54:26 PM', '1522515266', 'e'),
-(1955, 'Page updated successfully on >> Saturday 31st March 2018, 18:56:36 PM', '1522515396', 'g'),
-(1956, 'Page updated successfully on >> Saturday 31st March 2018, 18:57:14 PM', '1522515434', 'g'),
-(1957, 'Page deleted successfully on >> Saturday 31st March 2018, 18:57:54 PM', '1522515474', 'e'),
-(1958, 'Page updated successfully on >> Saturday 31st March 2018, 18:59:15 PM', '1522515555', 'g'),
-(1959, 'Page deleted successfully on >> Saturday 31st March 2018, 19:00:07 PM', '1522515607', 'e'),
-(1960, 'admin >> login sucessfully on >> Saturday 31st March 2018, 19:39:28 PM', '1522517968', 'g'),
-(1961, 'Image deleted successfully on >> Saturday 31st March 2018, 20:29:31 PM', '1522520971', 'e'),
-(1962, 'Image deleted successfully on >> Saturday 31st March 2018, 20:29:36 PM', '1522520976', 'e'),
-(1963, 'Image deleted successfully on >> Saturday 31st March 2018, 20:29:43 PM', '1522520983', 'e'),
-(1964, 'Image deleted successfully on >> Saturday 31st March 2018, 20:29:51 PM', '1522520991', 'e'),
-(1965, 'admin >> login sucessfully on >> Monday 02nd April 2018, 18:48:49 PM', '1522687729', 'g'),
-(1966, 'admin >> login sucessfully on >> Monday 02nd April 2018, 19:55:58 PM', '1522691758', 'g');
+(1993, 'Store >> Subjects deletion failed on >> Thursday 05th April 2018, 12:58:14 PM', '1522925894', 'e'),
+(1994, 'Store >> Subjects deletion failed on >> Thursday 05th April 2018, 12:59:48 PM', '1522925988', 'e'),
+(1995, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:01:32 PM', '1522926092', 'e'),
+(1996, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:01:36 PM', '1522926096', 'e'),
+(1997, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:01:52 PM', '1522926112', 'g'),
+(1998, 'Store >> Product updated successfully on >> Thursday 05th April 2018, 13:06:21 PM', '1522926381', 'g'),
+(1999, 'Store >> Product updated successfully on >> Thursday 05th April 2018, 13:06:43 PM', '1522926403', 'g'),
+(1982, 'admin >> login sucessfully on >> Thursday 05th April 2018, 06:57:48 AM', '1522904268', 'g'),
+(1983, 'admin >> login sucessfully on >> Thursday 05th April 2018, 07:30:51 AM', '1522906251', 'g'),
+(1984, 'admin >> login sucessfully on >> Thursday 05th April 2018, 11:23:55 AM', '1522920235', 'g'),
+(1985, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 11:25:22 AM', '1522920322', 'g'),
+(1986, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:46:24 PM', '1522925184', 'e'),
+(1987, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:46:32 PM', '1522925192', 'e'),
+(1988, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:47:05 PM', '1522925225', 'e'),
+(1989, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:48:11 PM', '1522925291', 'e'),
+(1990, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:50:24 PM', '1522925424', 'e'),
+(1991, 'SubCategory >> subcategory updated successfully on >> Thursday 05th April 2018, 12:52:12 PM', '1522925532', 'g'),
+(1992, 'SubCategory >> subcategory updated successfully on >> Thursday 05th April 2018, 12:52:19 PM', '1522925539', 'g'),
+(2000, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:07:02 PM', '1522926422', 'g'),
+(2001, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:10:31 PM', '1522926631', 'g'),
+(2002, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:10:35 PM', '1522926635', 'e'),
+(2003, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:10:37 PM', '1522926637', 'e'),
+(2004, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:10:39 PM', '1522926639', 'e'),
+(2005, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:11:09 PM', '1522926669', 'g'),
+(2006, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:11:20 PM', '1522926680', 'g');
 
 -- --------------------------------------------------------
 
@@ -825,10 +826,10 @@ INSERT INTO `tb_store_products` (`spid`, `scid`, `prodtitle`, `prodtitle_slug`, 
 --
 
 CREATE TABLE IF NOT EXISTS `tb_subcategory` (
-  `spid` int(11) NOT NULL AUTO_INCREMENT,
-  `scid` int(11) NOT NULL,
-  `prodtitle` varchar(250) NOT NULL,
-  `prodtitle_slug` varchar(250) NOT NULL,
+  `scatid` int(11) NOT NULL AUTO_INCREMENT,
+  `cid` int(11) NOT NULL,
+  `subcattitle` varchar(250) NOT NULL,
+  `subcattitle_slug` varchar(250) NOT NULL,
   `bigtext` text NOT NULL,
   `image` varchar(250) NOT NULL,
   `offer` enum('yes','no') NOT NULL,
@@ -836,15 +837,44 @@ CREATE TABLE IF NOT EXISTS `tb_subcategory` (
   `newprice` float(10,2) NOT NULL,
   `status` enum('Active','Inactive') NOT NULL,
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`spid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`scatid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `tb_subcategory`
 --
 
-INSERT INTO `tb_subcategory` (`spid`, `scid`, `prodtitle`, `prodtitle_slug`, `bigtext`, `image`, `offer`, `oldprice`, `newprice`, `status`, `createdon`) VALUES
-(1, 1, 'subcategory 1', 'subcategory-1', 'subca', 'prod_15226959645ac27f1c6068e.jpg', '', 0.00, 0.00, 'Active', '2018-04-02 19:06:04');
+INSERT INTO `tb_subcategory` (`scatid`, `cid`, `subcattitle`, `subcattitle_slug`, `bigtext`, `image`, `offer`, `oldprice`, `newprice`, `status`, `createdon`) VALUES
+(1, 1, 'CBSC', 'cbsc', 'CBSC', 'prod_15226959645ac27f1c6068e.jpg', '', 0.00, 0.00, 'Active', '2018-04-02 19:06:04'),
+(2, 2, 'ap', 'ap', 'ap', '', 'yes', 0.00, 0.00, 'Active', '2018-04-04 12:20:11'),
+(3, 1, 'ICSC', 'icsc', 'ICSC', '', '', 0.00, 0.00, 'Active', '2018-04-05 05:52:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_subjects`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_subjects` (
+  `spid` int(11) NOT NULL AUTO_INCREMENT,
+  `cid` int(11) NOT NULL,
+  `scid` int(11) NOT NULL,
+  `subjtitle` varchar(250) NOT NULL,
+  `subjtitle_slug` varchar(250) NOT NULL,
+  `bigtext` text NOT NULL,
+  `image` varchar(250) NOT NULL,
+  `status` enum('Active','Inactive') NOT NULL,
+  `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`spid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tb_subjects`
+--
+
+INSERT INTO `tb_subjects` (`spid`, `cid`, `scid`, `subjtitle`, `subjtitle_slug`, `bigtext`, `image`, `status`, `createdon`) VALUES
+(1, 1, 1, 'IMO', 'imo', 'IMO', '', 'Active', '2018-04-05 11:11:09'),
+(2, 2, 2, 'ISC', 'isc', 'ISC', '', 'Active', '2018-04-05 11:11:20');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

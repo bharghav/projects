@@ -29,7 +29,7 @@ $limit=1;
 if($_GET['fld']!="")
 $fldname=$_GET['fld'];
 else
-$fldname="spid";
+$fldname="scatid";
 if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
@@ -69,17 +69,18 @@ if($option!="com_subcat_insert"){
 			<tbody>
 			<?php
 			if(sizeof($allproductsdisp)>0){
-					$ii=0;
-					foreach($allproductsdisp as $all_products){
-					?>
+			$ii=0;
+			foreach($allproductsdisp as $all_products){
+			?>
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
-			<td  align="left" valign="middle"><?php echo stripslashes($all_products->scid);?></td>
-			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($all_products->prodtitle);?></td>
+			<?php $allcategoryInfo=$storeObj->getCategoryData($all_products->cid); ?>
+			<td  align="left" valign="middle"><?php echo stripslashes($allcategoryInfo->catetitle);?></td>
+			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($all_products->subcattitle);?></td>
 			<!-- <td align="left" valign="middle"><img src="../uploads/subcategory/<?php echo $all_products->image;?>" height="50" width="50"></td> -->
-			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subcat_insert&id=<?php echo $all_products->spid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
+			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subcat_insert&id=<?php echo $all_products->scatid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
-						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_subcat&action=delete&id=<?php echo $all_products->spid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
+						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_subcat&action=delete&id=<?php echo $all_products->scatid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
 						</td>
 			</tr>
 			<?php
@@ -120,11 +121,11 @@ return stringToTrim.replace(/^\s+|\s+$/g,"");
 }
 function validate(fld)
 {
-	if(document.frmCreatestate.scid.value=="")
+	if(document.frmCreatestate.cid.value=="")
 	{ 
 		alert("Please Select Category ");
-		document.frmCreatestate.scid.value='';
-		document.frmCreatestate.scid.focus();
+		document.frmCreatestate.cid.value='';
+		document.frmCreatestate.cid.focus();
 		return false;
 	}
 	if(document.frmCreatestate.prodtitle.value=="")
@@ -204,24 +205,24 @@ return true;
 			   <tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Category :</label></td>
                 <td width="94%" align="left" valign="middle">
-				<select name="scid" id="scid" class="select_medium required">
+				<select name="cid" id="cid" class="select_medium required">
 				<option value="">Select</option>
 				<?php
-				$allcategorylist=$storeObj->getAllCategoryList('Active','scid','ASC','','');
+				$allcategorylist=$storeObj->getAllCategoryList('Active','cid','ASC','','');
 				foreach($allcategorylist as $catlist)
 				{
 				?>
-				<option value="<?php echo $catlist->scid;?>"><?php echo stripslashes($catlist->catetitle);?></option>
+				<option value="<?php echo $catlist->cid;?>"><?php echo stripslashes($catlist->catetitle);?></option>
 				<?php
 				}
 				?>
 				</select>
 				<script type="text/javascript">
-                for(var i=0;i<document.getElementById('scid').length;i++)
+                for(var i=0;i<document.getElementById('cid').length;i++)
                 {
-						if(document.getElementById('scid').options[i].value=="<?php echo $indivdata->scid ?>")
+						if(document.getElementById('cid').options[i].value=="<?php echo $indivdata->cid ?>")
 						{
-						document.getElementById('scid').options[i].selected=true
+						document.getElementById('cid').options[i].selected=true
 						}
                 }			
                 </script></td>
@@ -229,7 +230,7 @@ return true;
 			   <tr><td colspan="2" height="7"></td></tr>
 			   <tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Product Name :</label></td>
-                <td width="94%" align="left" valign="middle"><input name="prodtitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->prodtitle);?>"/></td>
+                <td width="94%" align="left" valign="middle"><input name="subcattitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->subcattitle);?>"/></td>
 	</tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 			   <script type="text/javascript">
@@ -324,7 +325,7 @@ return true;
 			  </tr>
 			   <tr><td colspan="2" height="7"></td></tr>
 	<tr>
-	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->spid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
+	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->cid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
 	</tr>
         </table>
 	</form>	

@@ -76,14 +76,16 @@ if($option!="com_subject_insert"){
 					?>
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
-			<td  align="left" valign="middle"><?php echo stripslashes($allforum_list->cat);?></td>
-			<td  align="left" valign="middle"><?php echo stripslashes($allforum_list->subcat);?></td>
+			<?php $allcategoryInfo=$storeObj->getCategoryData($allforum_list->cid); 
+			$allsubcategoryInfo=$storeObj->getsubCategoryData($allforum_list->scid);  ?>
+			<td  align="left" valign="middle"><?php echo stripslashes($allcategoryInfo->catetitle);?></td>
+			<td  align="left" valign="middle"><?php echo stripslashes($allsubcategoryInfo->subcattitle);?></td>
 			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->subjtitle);?></td>
 			<!-- <td align="center" valign="middle"><img src="../uploads/subjects/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> -->
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
-			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subject_insert&id=<?php echo $allforum_list->scid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
+			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_subject_insert&id=<?php echo $allforum_list->spid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
-						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_subject&action=delete&id=<?php echo $allforum_list->scid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
+						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_subject&action=delete&id=<?php echo $allforum_list->spid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
 			  </td>
 			</tr>
 			<?php
@@ -191,7 +193,7 @@ return true;
 	<tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Category :</label></td>
                 <td width="94%" align="left" valign="middle">
-				<select name="category" id="category" class="select_medium required">
+				<!-- <select name="category" id="category" class="select_medium required">
 				<option value="">Select</option>
 				<?php
 				$allcategorylist=$storeObj->getAllCategoryList('Active','scid','ASC','','');
@@ -202,22 +204,52 @@ return true;
 				<?php
 				}
 				?>
+				</select> -->
+				<script type="text/javascript">
+				function getState(val) {
+					$.ajax({
+					type: "POST",
+					url: "./get_state.php",
+					data:'category_id='+val,
+					success: function(data){
+						$("#state-list").html(data);
+					}
+					});
+				}
+
+				/*function selectCountry(val) {
+				$("#search-box").val(val);
+				$("#suggesstion-box").hide();
+				}*/
+				</script>
+				<select name="category" id="category-list" class="demoInputBox" onChange="getState(this.value);">
+				<option value="">Select category</option>
+				<?php
+				$allcategorylist=$storeObj->getAllCategoryList('Active','cid','ASC','','');
+				foreach($allcategorylist as $catlist)
+				{
+				?>
+				<option value="<?php echo $catlist->cid;?>" <?php if($catlist->cid == $indivdata->cid){?>selected=selected<?php }?>><?php echo stripslashes($catlist->catetitle);?></option>
+				<?php
+				}
+				?>
 				</select>
+
 				<script type="text/javascript">
                 for(var i=0;i<document.getElementById('category').length;i++)
                 {
-						if(document.getElementById('category').options[i].value=="<?php echo $indivdata->category ?>")
+						if(document.getElementById('category').options[i].value=="<?php echo $indivdata->scid; ?>")
 						{
 						document.getElementById('category').options[i].selected=true
 						}
-                }			
+                }		
                 </script></td>
 			  </tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 			  <tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Sub Category :</label></td>
                 <td width="94%" align="left" valign="middle">
-				<select name="subcategory" id="subcategory" class="select_medium required">
+				<!-- <select name="subcategory" id="subcategory" class="select_medium required">
 				<option value="">Select</option>
 				<?php
 				$allsubcategorylist=$storeObj->getAllsubCategoryList('Active','scid','ASC','','');
@@ -228,7 +260,23 @@ return true;
 				<?php
 				}
 				?>
+				</select> -->
+				
+				<select name="subcategory" id="state-list" class="demoInputBox">
+				<option value="">Select Subcategory</option>
 				</select>
+				<!-- <select name="subcategory" id="subcategory-list" class="demoInputBox">
+				<option value="">Select category</option>
+				<?php
+				$allsubcategorylist=$storeObj->getsubCategoryData($indivdata->scid);
+				foreach($allsubcategorylist as $subcatlist)
+				{
+				?>
+					<option value="<?php echo $subcatlist->scatid;?>" ><?php echo stripslashes($subcatlist->subcattitle);?></option>
+				<?php
+				}
+				?>
+				</select> -->
 				<script type="text/javascript">
                 for(var i=0;i<document.getElementById('subcategory').length;i++)
                 {
@@ -236,7 +284,7 @@ return true;
 						{
 						document.getElementById('subcategory').options[i].selected=true
 						}
-                }			
+                }		
                 </script></td>
 			  </tr>
 			  <tr><td colspan="2" height="7"></td></tr>
@@ -282,10 +330,10 @@ return true;
 				<tr>
                 <td align="left" class="caption-field"><label class="title">Status :</label> </td>
                 <td align="left" valign="middle" class="caption-field">
-    <select name="status" id="status" class="select_large required">
-	<option value="Active">Active</option>
-    <option value="Inactive">Inactive</option>
-	</select>
+    			<select name="status" id="status" class="select_large required">
+				<option value="Active">Active</option>
+    			<option value="Inactive">Inactive</option>
+				</select>
 	<script type="text/javascript">
                 for(var i=0;i<document.getElementById('status').length;i++)
                 {

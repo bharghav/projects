@@ -29,7 +29,7 @@ $limit=25;
 if($_GET['fld']!="")
 $fldname=$_GET['fld'];
 else
-$fldname="scid";
+$fldname="cid";
 if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
@@ -77,9 +77,9 @@ if($option!="com_cat_insert"){
 			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->catetitle);?></td>
 			<!-- <td align="center" valign="middle"><img src="../uploads/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> -->
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
-			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_cat_insert&id=<?php echo $allforum_list->scid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
+			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_cat_insert&id=<?php echo $allforum_list->cid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
-						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_cat&action=delete&id=<?php echo $allforum_list->scid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
+						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_cat&action=delete&id=<?php echo $allforum_list->cid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
 			  </td>
 			</tr>
 			<?php
@@ -219,7 +219,7 @@ return true;
 			  </tr>
 			   <tr><td colspan="2" height="7"></td></tr>
 	<tr>
-	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->scid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
+	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->cid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
 	</tr>
         </table>
 	</form>	
