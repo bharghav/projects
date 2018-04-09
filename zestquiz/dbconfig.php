@@ -37,7 +37,7 @@ define('TBL_FORUMCOMMENTS','forum_comments');
 define('TBL_CATEGORY','category');
 define('TBL_SUBCATEGORY','subcategory');
 define('TBL_SUBJECTS','subjects');
-
+define('TBL_QUESTION','questions');
 
 define('TBL_STORECATEGORY','store_category');
 define('TBL_STOREPRODUCTS','store_products');

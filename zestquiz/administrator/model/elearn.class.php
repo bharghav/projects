@@ -292,6 +292,100 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 
 //end of the subjects//
 
+// questions //
+ function getAllQuestionsList($where,$sortfield,$order,$start,$limit)
+  {
+	global $callConfig;
+	if($sortfield!="" && $order!="") $order=$sortfield.' '.$order;
+	if($where!="")
+	$whr=" status='".$where."'";
+	$query=$callConfig->selectQuery(TPREFIX.TBL_QUESTION,'*',$whr,$order,$start,$limit);
+	return $callConfig->getAllRows($query);
+  } 
+  function getAllQuestionsListCount($where)
+  {
+	global $callConfig;
+	if($where!="")
+	$whr=" status='".$where."'";
+	$query=$callConfig->selectQuery(TPREFIX.TBL_QUESTION,'qid',$whr,'','','');
+	return $callConfig->getCount($query);
+  } 
+  
+  function getQuestionData($id)
+  {
+	global $callConfig;
+	$query=$callConfig->selectQuery(TPREFIX.TBL_QUESTION,'*','qid='.$id,'','','');
+	return $callConfig->getRow($query);
+ }
+ 
+	function insertQuestions($post)
+	{
+	global $callConfig;
+	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
+	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$res=$callConfig->insertRecord(TPREFIX.TBL_QUESTION,$fieldnames);
+	if($res!="")
+	{
+		sitesettingsClass::recentActivities('Category >> Category created successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category created successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('Category >> Category creation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category creation failed");
+	}
+	}
+	
+	function updateQuestion($post)
+	{
+	global $callConfig;
+	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
+	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
+	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_QUESTION,$fieldnames,'cid',$post['hdn_id']);
+	if($res==1)
+	{
+		sitesettingsClass::recentActivities('Category >> Category updated successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category updated successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('Category >> Category updation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category updation failed");
+	}
+	}
+	
+	function questionDelete($id)
+	{
+	global $callConfig;
+	//$query=$callConfig->selectQuery(TPREFIX.TBL_CATEGORY,'image','scid='.$id,'','','');
+	//$imageres = $callConfig->getRow($query);
+	//$callConfig->imageCommonUnlink("../uploads/category/","../uploads/category/thumbs/",$imageres->image);
+	$res=$callConfig->deleteRecord(TPREFIX.TBL_QUESTION,'cid',$id);
+	if($res==1)
+	{
+		$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'spid,image','scid='.$id,'','','');
+		$productsres = $callConfig->getAllRows($query);
+		$c=array();
+		foreach($productsres as $res_prod){
+		$c[]=$res_prod->spid;
+		$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$res_prod->image);
+		}
+		$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'spid',$c);
+		sitesettingsClass::recentActivities('Category >> Category deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category deleted successfully");
+	}
+	else
+	{
+		sitesettingsClass::recentActivities('Category >> Category deletion failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category deletion failed");
+	}
+	}
+// end questions //
+
+
+
  // Product store //
  function getAllProductsList($sortfield,$order,$start,$limit)
   {

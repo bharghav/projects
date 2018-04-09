@@ -1,19 +1,19 @@
 <?php 
 include('includes/session.php');
-include("model/store.class.php");
-$storeObj=new storeClass();
+include("model/elearn.class.php");
+$storeObj=new elearnClass();
 if($_GET['action']=="delete"){
-   $storeObj->storeCategoryDelete($_GET['id']);
+   $storeObj->questionDelete($_GET['id']);
 }
 if($_POST['admininsert']=="Submit"){
-   $storeObj->insertStoreCategory($_POST);
+   $storeObj->insertQuestions($_POST);
 }
 if($_POST['admininsert']=="Update"){
-   $storeObj->updateStoreCategory($_POST);
+   $storeObj->updateQuestion($_POST);
 }
 if(isset($_GET['id']) && $_GET['id']!=""){
    $hdn_value="Update";
-   $indivdata=$storeObj->getStoreCategoryData($_GET['id']); 
+   $indivdata=$storeObj->getQuestionData($_GET['id']); 
    $hdn_in_up='class="button button_save"';
 } else { 
   $hdn_value="Submit";
@@ -34,8 +34,8 @@ if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
 $orderby="DESC";
-$allforumlist=$storeObj->getAllStoreCategoryList('',$fldname,$orderby,$start,$limit);
-$total=$storeObj->getAllStoreCategoryListCount('');
+$allforumlist=$storeObj->getAllQuestionsList('',$fldname,$orderby,$start,$limit);
+$total=$storeObj->getAllQuestionsListCount('');
 
 if($option!="com_question_insert"){
 ?>
@@ -175,12 +175,28 @@ return true;
                 <td width="94%" align="left" valign="middle"><input name="catetitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->catetitle);?>" style="width:800px;"/></td>
 	</tr>
 			  <tr><td colspan="2" height="7"></td></tr>
-			    <tr>
+			    <?php /* ?><tr>
                 <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
                 <td align="left" valign="middle" class="caption-field"><textarea name="bigtext" id="bigtext" cols="150" rows="2"><?php echo  stripslashes($indivdata->bigtext);?></textarea></td>
-				</tr>
+				</tr><?php */?>
 				 <tr><td colspan="2" height="7"></td></tr>
 				 <tr>
+                <td align="left" valign="top" class="caption-field"><label class="title">Question:</label></td>
+				<td align="left" valign="middle" class="caption-field"> 
+				<?php
+				include 'fckeditor/fckeditor.php'; 
+				$sBasePath = 'fckeditor/' ;//to change in web root
+				$oFCKeditor = new FCKeditor('bigtext') ;  //name of the form-field to be generated
+				$oFCKeditor->BasePath	= $sBasePath ;
+				$oFCKeditor->Value		= $indivdata->bigtext;//the matter that may be in db
+				$oFCKeditor->Height=170;
+				$oFCKeditor->Width=900;
+				$oFCKeditor->Create() ;
+				?>	
+                </td>
+				</tr>
+				<tr><td colspan="2" height="7"></td></tr>
+				 <?php /*?><tr>
 				<td width="6%" align="left" valign="top" class="caption-field"><label class="title">Image:</label></td>
 				<td width="94%" align="left" valign="middle"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
 				<tr>
@@ -194,7 +210,7 @@ return true;
 				?>
 				<small> *Please upload image size WIDTH ( min - 100, max - 150 ) and HEIGHT ( min - 90, max - 130 )</small>
 				</td>
-				</tr>
+				</tr><?php */?>
 				</table></td>
 				</tr>
 			   
