@@ -29,7 +29,7 @@ $limit=25;
 if($_GET['fld']!="")
 $fldname=$_GET['fld'];
 else
-$fldname="scid";
+$fldname="qid";
 if($_GET['ord']!="")
 $orderby=$_GET['ord'];
 else
@@ -59,8 +59,8 @@ if($option!="com_question_insert"){
 					<a href="index.php?option=com_question&ord=ASC&fld=catetitle" class="up" title="up"></a>
 					<a href="index.php?option=com_question&ord=DESC&fld=catetitle" class="down" title="down"></a>
 					</div>
-</td>
- <td width="116" align="center" valign="middle" >Image</td>
+				</td>
+ 			 <!-- <td width="116" align="center" valign="middle" >Image</td> -->
 			  <td width="45" align="center" valign="middle" >Status</td>
               <td width="33" align="center" valign="middle" >Edit</td>
 			  <td width="40" align="center" valign="middle" >Delete</td>
@@ -74,12 +74,12 @@ if($option!="com_question_insert"){
 					?>
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
-			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->catetitle);?></td>
-			<td align="center" valign="middle"><img src="../uploads/store/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td>
+			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->questitle);?></td>
+			<!-- <td align="center" valign="middle"><img src="../uploads/store/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> -->
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
-			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_question_insert&id=<?php echo $allforum_list->scid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
+			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_question_insert&id=<?php echo $allforum_list->qid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
-						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_question&action=delete&id=<?php echo $allforum_list->scid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
+						<a title="delete" href="#" onClick="var q = confirm('Are you sure you want to delete selected record?'); if (q) { window.location = 'index.php?option=com_question&action=delete&id=<?php echo $allforum_list->qid;?>'; return false;}"><img src="allfiles/icon_delete.png"  alt="Delete" border="0"/></a>
 			  </td>
 			</tr>
 			<?php
@@ -120,23 +120,30 @@ return stringToTrim.replace(/^\s+|\s+$/g,"");
 }
 function validate(fld)
 {
-	if(trim(document.frmCreatestate.catetitle.value)=="")
+	if(trim(document.frmCreatestate.questitle.value)=="")
 	{ 
 		alert("Please enter Category title");
-		document.frmCreatestate.catetitle.value='';
-		document.frmCreatestate.catetitle.focus();
+		document.frmCreatestate.questitle.value='';
+		document.frmCreatestate.questitle.focus();
 		return false;
 	}
-		if(trim(document.frmCreatestate.bigtext.value)=="")
+	//alert(document.frmCreatestate.bigtext.value.length);
+	if(trim(document.frmCreatestate.question.value)=="")
 	{ 
 		alert("Please enter Description");
-		document.frmCreatestate.bigtext.value='';
-		document.frmCreatestate.bigtext.focus();
+		document.frmCreatestate.question.value='';
+		document.frmCreatestate.question.focus();
 		return false;
 	}
-
+	if(trim(document.frmCreatestate.quesmarks.value)=="")
+	{ 
+		alert("Please enter Question Marks");
+		document.frmCreatestate.quesmarks.value='';
+		document.frmCreatestate.quesmarks.focus();
+		return false;
+	}
 	
-	var imagehdnval="<?=$indivdata->image?>";
+	/*var imagehdnval="<?=$indivdata->image?>";
 	if(imagehdnval=="")
 	{
 		if(trim(document.frmCreatestate.image.value)=="")
@@ -153,7 +160,7 @@ function validate(fld)
 		fld.focus();
 		return false;
 		}
-	}
+	}*/
 	
 return true;
 }
@@ -172,7 +179,7 @@ return true;
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" >
 	<tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Title:</label></td>
-                <td width="94%" align="left" valign="middle"><input name="catetitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->catetitle);?>" style="width:800px;"/></td>
+                <td width="94%" align="left" valign="middle"><input name="questitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->questitle);?>" style="width:800px;"/></td>
 	</tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 			    <?php /* ?><tr>
@@ -186,9 +193,9 @@ return true;
 				<?php
 				include 'fckeditor/fckeditor.php'; 
 				$sBasePath = 'fckeditor/' ;//to change in web root
-				$oFCKeditor = new FCKeditor('bigtext') ;  //name of the form-field to be generated
+				$oFCKeditor = new FCKeditor('question');  //name of the form-field to be generated
 				$oFCKeditor->BasePath	= $sBasePath ;
-				$oFCKeditor->Value		= $indivdata->bigtext;//the matter that may be in db
+				$oFCKeditor->Value		= trim($indivdata->question);//the matter that may be in db
 				$oFCKeditor->Height=170;
 				$oFCKeditor->Width=900;
 				$oFCKeditor->Create() ;
@@ -196,7 +203,12 @@ return true;
                 </td>
 				</tr>
 				<tr><td colspan="2" height="7"></td></tr>
-				 <?php /*?><tr>
+				<tr>
+                <td width="6%" align="left" class="caption-field"><label class="title">Question Marks:</label></td>
+                <td width="94%" align="left" valign="middle"><input name="quesmarks" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->quesmarks);?>" style="width:800px;"/></td>
+				</tr>
+			  	<tr><td colspan="2" height="7"></td></tr>
+				<?php /*?><tr>
 				<td width="6%" align="left" valign="top" class="caption-field"><label class="title">Image:</label></td>
 				<td width="94%" align="left" valign="middle"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
 				<tr>
@@ -210,19 +222,19 @@ return true;
 				?>
 				<small> *Please upload image size WIDTH ( min - 100, max - 150 ) and HEIGHT ( min - 90, max - 130 )</small>
 				</td>
-				</tr><?php */?>
-				</table></td>
 				</tr>
+				</table></td>
+				</tr><?php */?>
 			   
 				<tr><td colspan="2" height="7"></td></tr>
 				<tr>
                 <td align="left" class="caption-field"><label class="title">Status :</label> </td>
                 <td align="left" valign="middle" class="caption-field">
-    <select name="status" id="status" class="select_large required">
-	<option value="Active">Active</option>
-    <option value="Inactive">Inactive</option>
-	</select>
-	<script type="text/javascript">
+			    <select name="status" id="status" class="select_large required">
+				<option value="Active">Active</option>
+			    <option value="Inactive">Inactive</option>
+				</select>
+				<script type="text/javascript">
                 for(var i=0;i<document.getElementById('status').length;i++)
                 {
 						if(document.getElementById('status').options[i].value=="<?php echo $indivdata->status; ?>")
@@ -235,7 +247,7 @@ return true;
 			  </tr>
 			   <tr><td colspan="2" height="7"></td></tr>
 	<tr>
-	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->scid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
+	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->qid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
 	</tr>
         </table>
 	</form>	

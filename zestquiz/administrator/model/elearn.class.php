@@ -323,36 +323,36 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	global $callConfig;
 	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
-	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['bigtext']),'quesmarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
 	$res=$callConfig->insertRecord(TPREFIX.TBL_QUESTION,$fieldnames);
 	if($res!="")
 	{
-		sitesettingsClass::recentActivities('Category >> Category created successfully on >> '.DATE_TIME_FORMAT.'','g');
-		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category created successfully");
+		sitesettingsClass::recentActivities('Question >> Question created successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_question&err=Question >> Question created successfully");
 	}
 	else
 	{
-		sitesettingsClass::recentActivities('Category >> Category creation failed on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category creation failed");
+		sitesettingsClass::recentActivities('Question >> Question creation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_question&ferr=Question >> Question creation failed");
 	}
 	}
 	
 	function updateQuestion($post)
 	{
 	global $callConfig;
-	$titleslug=$callConfig->remove_special_symbols($post['catetitle']);
+	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
-	$fieldnames=array('catetitle'=>mysql_real_escape_string($post['catetitle']),'catetitle_slug'=>$titleslug,'bigtext'=>mysql_real_escape_string($post['bigtext']),'status'=>$post['status']);
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['bigtext']),'quesmarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
 	$res=$callConfig->updateRecord(TPREFIX.TBL_QUESTION,$fieldnames,'cid',$post['hdn_id']);
 	if($res==1)
 	{
-		sitesettingsClass::recentActivities('Category >> Category updated successfully on >> '.DATE_TIME_FORMAT.'','g');
-		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category updated successfully");
+		sitesettingsClass::recentActivities('Question >> Question updated successfully on >> '.DATE_TIME_FORMAT.'','g');
+		$callConfig->headerRedirect("index.php?option=com_question&err=Question >> Question updated successfully");
 	}
 	else
 	{
-		sitesettingsClass::recentActivities('Category >> Category updation failed on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category updation failed");
+		sitesettingsClass::recentActivities('Question >> Question updation failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_question&ferr=Question >> Question updation failed");
 	}
 	}
 	
@@ -373,13 +373,13 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 		$callConfig->imageCommonUnlink("../uploads/subcategory/","../uploads/subcategory/thumbs/",$res_prod->image);
 		}
 		$callConfig->deleteRecord(TPREFIX.TBL_SUBCATEGORY,'spid',$c);
-		sitesettingsClass::recentActivities('Category >> Category deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_cat&err=Category >> Category deleted successfully");
+		sitesettingsClass::recentActivities('Question >> Question deleted successfully on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_question&err=Question >> Question deleted successfully");
 	}
 	else
 	{
-		sitesettingsClass::recentActivities('Category >> Category deletion failed on >> '.DATE_TIME_FORMAT.'','e');
-		$callConfig->headerRedirect("index.php?option=com_cat&ferr=Category >> Category deletion failed");
+		sitesettingsClass::recentActivities('Question >> Question deletion failed on >> '.DATE_TIME_FORMAT.'','e');
+		$callConfig->headerRedirect("index.php?option=com_question&ferr=Question >> Question deletion failed");
 	}
 	}
 // end questions //
