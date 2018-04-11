@@ -314,19 +314,33 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
   function getQuestionData($id)
   {
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_QUESTION,'*','qid='.$id,'','','');
+	//$query=$callConfig->selectQuery(TPREFIX.TBL_QUESTION,'*','qid='.$id,'','','');
+	$query=$callConfig->selectQuery_two(TPREFIX.TBL_QUESTION.' q',TPREFIX.TBL_QUESTIONOPTIONS.' qop','q.*','qop.*','q.qid='.$id.' and q.qid = qop.qid','','','');
 	return $callConfig->getRow($query);
  }
  
 	function insertQuestions($post)
 	{
 	global $callConfig;
+	/*echo "<pre>";
+	print_r($post);
+	$post['multiple_correctans'];*/
+	$multpleArray = implode(',',$post['multiple_correctans']);
+	/*print_r($multple);
+	exit;*/
 	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
-	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['bigtext']),'quesmarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['question']),'questionType'=>mysql_real_escape_string($post['questype']),'questionMarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
 	$res=$callConfig->insertRecord(TPREFIX.TBL_QUESTION,$fieldnames);
 	if($res!="")
 	{
+		if($post['questype'] == 'Single'){
+			$fieldnamesOptions=array('qid'=>$res,'optionValue'=>$post['single_correctans'],'option1'=>mysql_real_escape_string($post['option1']),'option2'=>mysql_real_escape_string($post['option2']),'option3'=>mysql_real_escape_string($post['option3']),'option4'=>mysql_real_escape_string($post['option4']));
+			$resOptions=$callConfig->insertRecord(TPREFIX.TBL_QUESTIONOPTIONS,$fieldnamesOptions);
+		}else{
+			$fieldnamesOptions=array('qid'=>$res,'optionValue'=>$multpleArray,'option1'=>mysql_real_escape_string($post['option5']),'option2'=>mysql_real_escape_string($post['option6']),'option3'=>mysql_real_escape_string($post['option7']),'option4'=>mysql_real_escape_string($post['option8']));
+			$resOptions=$callConfig->insertRecord(TPREFIX.TBL_QUESTIONOPTIONS,$fieldnamesOptions);
+		}
 		sitesettingsClass::recentActivities('Question >> Question created successfully on >> '.DATE_TIME_FORMAT.'','g');
 		$callConfig->headerRedirect("index.php?option=com_question&err=Question >> Question created successfully");
 	}
@@ -340,12 +354,23 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	function updateQuestion($post)
 	{
 	global $callConfig;
+	/*echo "<pre>";
+	print_r($post);exit;*/
 	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
+	$multpleArray = implode(',',$post['multiple_correctans']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
-	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['bigtext']),'quesmarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
-	$res=$callConfig->updateRecord(TPREFIX.TBL_QUESTION,$fieldnames,'cid',$post['hdn_id']);
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['question']),'questionType'=>mysql_real_escape_string($post['questype']),'questionMarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
+	$res=$callConfig->updateRecord(TPREFIX.TBL_QUESTION,$fieldnames,'qid',$post['hdn_id']);
 	if($res==1)
 	{
+		if($post['questype'] == 'Single'){
+			$fieldnamesOptions=array('id'=>$post['hdn_opid'],'qid'=>$post['hdn_id'],'optionValue'=>$post['single_correctans'],'option1'=>mysql_real_escape_string($post['option1']),'option2'=>mysql_real_escape_string($post['option2']),'option3'=>mysql_real_escape_string($post['option3']),'option4'=>mysql_real_escape_string($post['option4']));
+			$resOptions=$callConfig->updateRecord(TPREFIX.TBL_QUESTIONOPTIONS,$fieldnamesOptions,'qid',$post['hdn_id']);
+		}else{
+			$fieldnamesOptions=array('id'=>$post['hdn_opid'],'qid'=>$post['hdn_id'],'optionValue'=>$multpleArray,'option1'=>mysql_real_escape_string($post['option5']),'option2'=>mysql_real_escape_string($post['option6']),'option3'=>mysql_real_escape_string($post['option7']),'option4'=>mysql_real_escape_string($post['option8']));
+			$resOptions=$callConfig->updateRecord(TPREFIX.TBL_QUESTIONOPTIONS,$fieldnamesOptions,'qid',$post['hdn_id']);
+		}
+
 		sitesettingsClass::recentActivities('Question >> Question updated successfully on >> '.DATE_TIME_FORMAT.'','g');
 		$callConfig->headerRedirect("index.php?option=com_question&err=Question >> Question updated successfully");
 	}

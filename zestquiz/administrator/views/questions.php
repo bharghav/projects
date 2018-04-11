@@ -135,6 +135,13 @@ function validate(fld)
 		document.frmCreatestate.question.focus();
 		return false;
 	}
+	if(trim(document.frmCreatestate.questype.value)=="")
+	{ 
+		alert("Please enter Question Type");
+		document.frmCreatestate.questype.value='';
+		document.frmCreatestate.questype.focus();
+		return false;
+	}
 	if(trim(document.frmCreatestate.quesmarks.value)=="")
 	{ 
 		alert("Please enter Question Marks");
@@ -142,6 +149,7 @@ function validate(fld)
 		document.frmCreatestate.quesmarks.focus();
 		return false;
 	}
+
 	
 	/*var imagehdnval="<?=$indivdata->image?>";
 	if(imagehdnval=="")
@@ -204,8 +212,197 @@ return true;
 				</tr>
 				<tr><td colspan="2" height="7"></td></tr>
 				<tr>
+                <td width="6%" align="left" class="caption-field"><label class="title">Question Type:</label></td>
+                <td width="94%" align="left" valign="middle">
+                	<select name="questype" id="questype" class="select_large required" onchange="showDiv(this)">
+	                	<option value="">Select Type</option>
+						<option value="Single">Single</option>
+					    <option value="Multiple">Multiple</option>
+					</select>
+
+					<script>
+
+					function showDiv(elem){
+						if(elem.value == 'Single')
+						{
+						document.getElementById('hidden_div_single').style.display = "block";
+						document.getElementById('hidden_div_multiple').style.display = "none";
+						}
+						else if(elem.value=='Multiple')
+						{
+						document.getElementById('hidden_div_multiple').style.display = "block";
+						document.getElementById('hidden_div_single').style.display = "none";
+						}
+					}
+
+					for(var i=0;i<document.getElementById('questype').length;i++)
+	                {
+							if(document.getElementById('questype').options[i].value=="<?php echo $indivdata->questionType; ?>")
+							{
+							document.getElementById('questype').options[i].selected=true
+							}
+	                }	
+
+				</script>
+				</tr>
+				<tr>
+                	<td width="6%" colspan="2" align="left" class="caption-field">
+                	<?php 
+                		if($indivdata->questionType == "Single"){
+                			if($_GET['id']!= ''){ $divSingleDisplay = "display: block;";$divMultipleDisplay = "display: none;";}else{ $divSingleDisplay = "display: none;";}
+                		}else{
+                			if($_GET['id']!= ''){ $divMultipleDisplay = "display: block;";$divSingleDisplay = "display: none;";}else{ $divMultipleDisplay = "display: none;";}
+                		}
+                	?>
+                	<div id="hidden_div_single" style="<?php echo $divSingleDisplay;?> padding:10px;">
+                		<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+						<tr>
+						<td width="15%">Option 1</td>
+						<td width="5%"><input type="radio" name="single_correctans" value="A" <?php if($indivdata->optionValue == "A"){?> checked <?php }?>> A </td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath1 = 'fckeditor/' ;//to change in web root
+							$oFCKeditor1 = new FCKeditor('option1');  //name of the form-field to be generated
+							$oFCKeditor1->BasePath	= $sBasePath1 ;
+							$oFCKeditor1->Value		= trim($indivdata->option1);//the matter that may be in db
+							$oFCKeditor1->Height=170;
+							$oFCKeditor1->Width=900;
+							$oFCKeditor1->Create() ;
+							?>
+						</td>
+						</tr>
+						<tr>
+						<td width="15%">Option 2</td>
+						<td width="5%"><input type="radio" name="single_correctans" value="B" <?php if($indivdata->optionValue == "B"){?> checked <?php }?>> B</td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath2 = 'fckeditor/' ;//to change in web root
+							$oFCKeditor2 = new FCKeditor('option2');  //name of the form-field to be generated
+							$oFCKeditor2->BasePath	= $sBasePath2 ;
+							$oFCKeditor2->Value		= trim($indivdata->option2);//the matter that may be in db
+							$oFCKeditor2->Height=170;
+							$oFCKeditor2->Width=900;
+							$oFCKeditor2->Create() ;
+							?>
+						</td>
+						</tr>
+						<tr>
+						<td width="15%">Option 3</td>
+						<td width="5%"><input type="radio" name="single_correctans" value="C" <?php if($indivdata->optionValue == "C"){?> checked <?php }?>> C</td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath3 = 'fckeditor/' ;//to change in web root
+							$oFCKeditor3 = new FCKeditor('option3');  //name of the form-field to be generated
+							$oFCKeditor3->BasePath	= $sBasePath3 ;
+							$oFCKeditor3->Value		= trim($indivdata->option3);//the matter that may be in db
+							$oFCKeditor3->Height=170;
+							$oFCKeditor3->Width=900;
+							$oFCKeditor3->Create() ;
+							?>
+						</td>
+						</tr>
+						<tr>
+						<td width="15%">Option 4</td>
+						<td width="5%"><input type="radio" name="single_correctans" value="D" <?php if($indivdata->optionValue == "D"){?> checked <?php }?>> D</td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath4 = 'fckeditor/' ;//to change in web root
+							$oFCKeditor4 = new FCKeditor('option4');  //name of the form-field to be generated
+							$oFCKeditor4->BasePath	= $sBasePath4 ;
+							$oFCKeditor4->Value		= trim($indivdata->option4);//the matter that may be in db
+							$oFCKeditor4->Height=170;
+							$oFCKeditor4->Width=900;
+							$oFCKeditor4->Create() ;
+							?>
+						</td>
+						</tr>
+
+						</table>
+                	</div>
+                	<?php $optionVal = explode(',',$indivdata->optionValue); 
+                		print_r($optionVal);
+	                	$vale = array_search("A", $optionVal); print_r($vale);
+                	?>
+                	<div id="hidden_div_multiple" style="<?php echo $divMultipleDisplay;?> padding:10px;">
+                		<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+						<tr>
+						<td width="15%">Option 1</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="A" <?php if($optionVal[0] == "A"){?> checked <?php }?>> A </td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath = 'fckeditor/' ;//to change in web root
+							$oFCKeditor = new FCKeditor('option5');  //name of the form-field to be generated
+							$oFCKeditor->BasePath	= $sBasePath ;
+							$oFCKeditor->Value		= trim($indivdata->option1);//the matter that may be in db
+							$oFCKeditor->Height=170;
+							$oFCKeditor->Width=900;
+							$oFCKeditor->Create() ;
+							?>
+						</td>
+						</tr>
+						<tr>
+						<td width="15%">Option 2</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="B" <?php if($optionVal[1] == "B"){?> checked <?php }?>> B</td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath = 'fckeditor/' ;//to change in web root
+							$oFCKeditor = new FCKeditor('option6');  //name of the form-field to be generated
+							$oFCKeditor->BasePath	= $sBasePath ;
+							$oFCKeditor->Value		= trim($indivdata->option2);//the matter that may be in db
+							$oFCKeditor->Height=170;
+							$oFCKeditor->Width=900;
+							$oFCKeditor->Create() ;
+							?>
+						</td>
+						</tr>
+						<tr>
+						<td width="15%">Option 3</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="C" <?php if($optionVal[2] == "C"){?> checked <?php }?>> C</td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath = 'fckeditor/' ;//to change in web root
+							$oFCKeditor = new FCKeditor('option7');  //name of the form-field to be generated
+							$oFCKeditor->BasePath	= $sBasePath ;
+							$oFCKeditor->Value		= trim($indivdata->option3);//the matter that may be in db
+							$oFCKeditor->Height=170;
+							$oFCKeditor->Width=900;
+							$oFCKeditor->Create() ;
+							?>
+						</td>
+						</tr>
+						<tr>
+						<td width="15%">Option 4</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="D" <?php if($optionVal[3] == "D"){?> checked <?php }?>> D</td>
+						<td width="70%">
+							<?php
+							include 'fckeditor/fckeditor.php'; 
+							$sBasePath = 'fckeditor/' ;//to change in web root
+							$oFCKeditor = new FCKeditor('option8');  //name of the form-field to be generated
+							$oFCKeditor->BasePath	= $sBasePath ;
+							$oFCKeditor->Value		= trim($indivdata->option4);//the matter that may be in db
+							$oFCKeditor->Height=170;
+							$oFCKeditor->Width=900;
+							$oFCKeditor->Create() ;
+							?>
+						</td>
+						</tr>
+
+						</table>
+                	</div>
+                	</td>
+				</tr>
+				
+				<tr><td colspan="2" height="7"></td></tr>
+				<tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Question Marks:</label></td>
-                <td width="94%" align="left" valign="middle"><input name="quesmarks" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->quesmarks);?>" style="width:800px;"/></td>
+                <td width="94%" align="left" valign="middle"><input name="quesmarks" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->questionMarks);?>" style="width:800px;"/></td>
 				</tr>
 			  	<tr><td colspan="2" height="7"></td></tr>
 				<?php /*?><tr>
@@ -247,7 +444,7 @@ return true;
 			  </tr>
 			   <tr><td colspan="2" height="7"></td></tr>
 	<tr>
-	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->qid?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
+	<td align="left" valign="middle" colspan="2"><input name="hdn_id" type="hidden" value="<?php echo $indivdata->qid?>"><input name="hdn_opid" type="hidden" value="<?php echo $indivdata->id?>"><input value="<?php echo $hdn_value;?>" class="button button_add" type="hidden" name="admininsert"><?php /*?><input <?php echo $hdn_in_up;?> type="submit" value=""><?php */?><input <?php echo $hdn_in_up;?> type="submit" value="" >	</td>
 	</tr>
         </table>
 	</form>	
