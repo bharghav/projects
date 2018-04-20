@@ -22,3 +22,81 @@
   </tr>
 </table>
 <?php */?>
+<?php 
+include_once("includes/sessions.php");
+include('dbconfig.php');
+include('administrator/includes/dbconnection.php');
+include ('model/contentpages.class.php');
+$contentpageObj= new contentpagesClass();
+if($_GET['pgid']!="" || $_GET['btid']!=""){
+$pg_id=$_GET['pgid'];
+} else {
+$pg_id=$contentpageObj->getContentPageSlugnameBasedOnPageId('1');
+}
+$content=$contentpageObj->getContentPageData($pg_id);
+$sitedata=$contentpageObj->getsitesettings();
+include ('model/user.class.php');
+$frontuserObj= new userClass();
+
+//include ('model/blog.class.php');
+//$frontUserBlogObj= new blogtopicClass();
+//$whichblogMETA=$contentpageObj->checkHomeORBlogPostsForRightNav($_GET['btid']); 
+
+include ('model/elearn.class.php');
+$frontUserOnlineStoreObj= new elearnClass();
+
+//include ('model/forum.class.php');
+//$forumObj= new fourmClass();
+//$allforumtopicdata=$forumObj->getForumTopicData($_GET['ftid']);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+<?php 
+if($content->page_title!="" && $_GET['bt']=="" &&  $_GET['fh']=="" &&  $_GET['fscid']=="" &&  $_GET['ftid']=="")echo stripslashes($content->page_title);
+if($_GET['bt'] && $_GET['fscid']=="") echo "The Super Teens - Blog ";
+if($_GET['fh'] && $_GET['fscid']=="") echo "The Super Teens - Forum ";
+if($_GET['fscid']!="" && $_GET['ftid']=="") echo "The Super Teens - Forum - Topics"; 
+if($_GET['ftid']!="") echo "The Super Teens - Forum - Topics - ".$allforumtopicdata->title;
+if($content->page_title=="" && $whichblogMETA->title=="")echo "The Super Teens";
+if($whichblogMETA->title!="")echo "The Super Teens - Blog ".stripslashes($whichblogMETA->title); 
+?>
+</title>
+<meta name="description" content="<?php if($content->meta_desc!="")echo stripslashes($content->meta_desc); else echo "The Super Teens";?>">
+<meta name="keywords" content="<?php if($content->meta_keyword!="")echo stripslashes($content->meta_keyword); else echo "The Super Teens";?>">
+<meta name="language" content="EN">
+<META NAME="author" CONTENT="The Super Teens">
+<meta name="revisit-after" content="2 days">
+<meta name="document-classification" content="The Super Teens">
+<meta name="document-type" content="Public">
+<meta name="document-rating" content="Safe for Kids">
+<meta name="document-distribution" content="Global">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="icon" type="image/gif" href="animated_favicon1.gif">
+<link href="styles.css" rel="stylesheet" type="text/css" />
+<?php echo stripslashes($sitedata->googleanalytics);?>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
+  <title>-::Zest Quiz::-</title>
+  <link href="css/main.css" type="text/css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Permanent+Marker|Sue+Ellen+Francisco" rel="stylesheet">
+</head>
+
+<body class="home">
+  <div class="main-container">
+    <div class="header">
+      <div  class="top-head">
+        <span class="icon-logo"></span>
+        <ul>
+          <li><a href="">Classes</a></li>
+          <li><a href="">Boards</a></li>
+          <li><a href="">Exams</a></li>
+          <li><a href="javascript:void(0)" class="button primary signup">SignUp</a></li>
+        </ul>
+      </div>

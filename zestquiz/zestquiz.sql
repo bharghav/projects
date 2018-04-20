@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2018 at 04:37 PM
+-- Generation Time: Apr 05, 2018 at 01:32 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`user_id`, `us_name`, `password`, `email`, `roletype`, `createdon`, `lastlogin`, `status`, `visitstore`) VALUES
-(1, 'admin', 'WVdSdGFXND0=', 'admin@gmail.com', 'senior', '2012-02-25 07:29:12', '1523013464', 'Active', 'no'),
+(1, 'admin', 'WVdSdGFXND0=', 'admin@gmail.com', 'senior', '2012-02-25 07:29:12', '1510839107', 'Active', 'no'),
 (2, 'level1', 'YkdWMlpXd3g=', 'level1@gmail.com', 'level1', '2012-02-28 23:32:59', '1332732478', 'Active', 'no'),
 (29, 'sastri', 'YzJGemRISnA=', 'sastri@themedia3.com', 'level2', '2012-03-25 15:25:53', '', 'Active', 'no'),
 (18, 'kr756', 'YzNJeU1uQnZiMmc9', 'kr756@hotmail.com', 'level2', '2012-03-18 23:04:55', '', 'Active', 'no'),
@@ -697,60 +697,6 @@ INSERT INTO `tb_newsletter_subscribers` (`id`, `emailid`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_questionoptions`
---
-
-CREATE TABLE IF NOT EXISTS `tb_questionoptions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `qid` int(11) NOT NULL,
-  `option1` text NOT NULL,
-  `option2` text NOT NULL,
-  `option3` text NOT NULL,
-  `option4` text NOT NULL,
-  `optionValue` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `tb_questionoptions`
---
-
-INSERT INTO `tb_questionoptions` (`id`, `qid`, `option1`, `option2`, `option3`, `option4`, `optionValue`) VALUES
-(1, 1, '<p>option1</p>', '<p>option2</p>', '<p>option3</p>', '<p>option4</p>', 'A'),
-(2, 2, '<p>option1</p>', '<p>option2</p>', '<p>option3</p>', '<p>option4</p>', 'A,B,,D'),
-(3, 3, '<p>option11234</p>', '<p>option21234</p>', '<p>option31234</p>', '', 'A,B,C');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_questions`
---
-
-CREATE TABLE IF NOT EXISTS `tb_questions` (
-  `qid` int(11) NOT NULL AUTO_INCREMENT,
-  `questitle` varchar(50) NOT NULL,
-  `questitle_slug` varchar(50) NOT NULL,
-  `question` longtext NOT NULL,
-  `questionType` enum('Single','Multiple') NOT NULL,
-  `questionMarks` int(11) NOT NULL,
-  `image` varchar(250) NOT NULL,
-  `status` enum('Active','Inactive') NOT NULL,
-  `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`qid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `tb_questions`
---
-
-INSERT INTO `tb_questions` (`qid`, `questitle`, `questitle_slug`, `question`, `questionType`, `questionMarks`, `image`, `status`, `createdon`) VALUES
-(1, 'qurstion1', 'qurstion1', '<p>question1</p>', 'Single', 10, '', 'Active', '2018-04-11 10:46:06'),
-(2, 'question2', 'question2', '<p>question2</p>', 'Multiple', 10, '', 'Active', '2018-04-11 10:47:29'),
-(3, 'question4123', 'question4123', '<p>question4123</p>', 'Multiple', 10, '', 'Active', '2018-04-11 10:56:38');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_recentactivities`
 --
 
@@ -760,38 +706,38 @@ CREATE TABLE IF NOT EXISTS `tb_recentactivities` (
   `date_time` varchar(30) NOT NULL,
   `type` enum('g','e') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2034 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2007 ;
 
 --
 -- Dumping data for table `tb_recentactivities`
 --
 
 INSERT INTO `tb_recentactivities` (`id`, `matter`, `date_time`, `type`) VALUES
-(2019, 'Question >> Question created successfully on >> Wednesday 11th April 2018, 12:40:15 PM', '1523443215', 'g'),
-(2021, 'Question >> Question created successfully on >> Wednesday 11th April 2018, 12:46:06 PM', '1523443566', 'g'),
-(2022, 'Question >> Question created successfully on >> Wednesday 11th April 2018, 12:47:29 PM', '1523443649', 'g'),
-(2023, 'Question >> Question created successfully on >> Wednesday 11th April 2018, 12:56:38 PM', '1523444198', 'g'),
-(2024, 'admin >> login sucessfully on >> Wednesday 11th April 2018, 14:49:14 PM', '1523450954', 'g'),
-(2025, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 15:26:21 PM', '1523453181', 'g'),
-(2027, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 15:29:33 PM', '1523453373', 'g'),
-(2028, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 15:35:21 PM', '1523453721', 'g'),
-(2029, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 15:37:19 PM', '1523453839', 'g'),
-(2031, 'admin >> login sucessfully on >> Wednesday 11th April 2018, 16:12:12 PM', '1523455932', 'g'),
-(2032, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 16:12:53 PM', '1523455973', 'g'),
-(2033, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 16:13:08 PM', '1523455988', 'g'),
-(2009, 'admin >> login sucessfully on >> Tuesday 10th April 2018, 15:06:35 PM', '1523365595', 'g'),
-(2010, 'Category >> Category creation failed on >> Tuesday 10th April 2018, 15:16:38 PM', '1523366198', 'e'),
-(2011, 'Question >> Question creation failed on >> Tuesday 10th April 2018, 16:36:57 PM', '1523371017', 'e'),
-(2012, 'Question >> Question creation failed on >> Tuesday 10th April 2018, 16:37:26 PM', '1523371046', 'e'),
-(2013, 'Question >> Question created successfully on >> Tuesday 10th April 2018, 16:43:55 PM', '1523371435', 'g'),
-(2014, 'admin >> login sucessfully on >> Wednesday 11th April 2018, 07:34:28 AM', '1523424868', 'g'),
-(2015, 'admin >> login sucessfully on >> Wednesday 11th April 2018, 10:09:59 AM', '1523434199', 'g'),
-(2016, 'admin >> login sucessfully on >> Wednesday 11th April 2018, 11:42:57 AM', '1523439777', 'g'),
-(2017, 'admin >> login sucessfully on >> Wednesday 11th April 2018, 12:28:56 PM', '1523442536', 'g'),
-(2018, 'Question >> Question creation failed on >> Wednesday 11th April 2018, 12:30:37 PM', '1523442637', 'e'),
-(2020, 'Question >> Question created successfully on >> Wednesday 11th April 2018, 12:42:35 PM', '1523443355', 'g'),
-(2026, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 15:28:32 PM', '1523453312', 'g'),
-(2030, 'Question >> Question updated successfully on >> Wednesday 11th April 2018, 15:39:29 PM', '1523453969', 'g');
+(1993, 'Store >> Subjects deletion failed on >> Thursday 05th April 2018, 12:58:14 PM', '1522925894', 'e'),
+(1994, 'Store >> Subjects deletion failed on >> Thursday 05th April 2018, 12:59:48 PM', '1522925988', 'e'),
+(1995, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:01:32 PM', '1522926092', 'e'),
+(1996, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:01:36 PM', '1522926096', 'e'),
+(1997, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:01:52 PM', '1522926112', 'g'),
+(1998, 'Store >> Product updated successfully on >> Thursday 05th April 2018, 13:06:21 PM', '1522926381', 'g'),
+(1999, 'Store >> Product updated successfully on >> Thursday 05th April 2018, 13:06:43 PM', '1522926403', 'g'),
+(1982, 'admin >> login sucessfully on >> Thursday 05th April 2018, 06:57:48 AM', '1522904268', 'g'),
+(1983, 'admin >> login sucessfully on >> Thursday 05th April 2018, 07:30:51 AM', '1522906251', 'g'),
+(1984, 'admin >> login sucessfully on >> Thursday 05th April 2018, 11:23:55 AM', '1522920235', 'g'),
+(1985, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 11:25:22 AM', '1522920322', 'g'),
+(1986, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:46:24 PM', '1522925184', 'e'),
+(1987, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:46:32 PM', '1522925192', 'e'),
+(1988, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:47:05 PM', '1522925225', 'e'),
+(1989, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:48:11 PM', '1522925291', 'e'),
+(1990, 'SubCategory >> subcategory updation failed on >> Thursday 05th April 2018, 12:50:24 PM', '1522925424', 'e'),
+(1991, 'SubCategory >> subcategory updated successfully on >> Thursday 05th April 2018, 12:52:12 PM', '1522925532', 'g'),
+(1992, 'SubCategory >> subcategory updated successfully on >> Thursday 05th April 2018, 12:52:19 PM', '1522925539', 'g'),
+(2000, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:07:02 PM', '1522926422', 'g'),
+(2001, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:10:31 PM', '1522926631', 'g'),
+(2002, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:10:35 PM', '1522926635', 'e'),
+(2003, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:10:37 PM', '1522926637', 'e'),
+(2004, 'Store >> Subjects deleted successfully on >> Thursday 05th April 2018, 13:10:39 PM', '1522926639', 'e'),
+(2005, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:11:09 PM', '1522926669', 'g'),
+(2006, 'Store >> Subjects created successfully on >> Thursday 05th April 2018, 13:11:20 PM', '1522926680', 'g');
 
 -- --------------------------------------------------------
 

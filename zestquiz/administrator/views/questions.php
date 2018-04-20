@@ -324,14 +324,17 @@ return true;
 						</table>
                 	</div>
                 	<?php $optionVal = explode(',',$indivdata->optionValue); 
-                		print_r($optionVal);
-	                	$vale = array_search("A", $optionVal); print_r($vale);
+                		//print_r($optionVal);
+	                	$option1Value = in_array("A", $optionVal); 
+	                	$option2Value = in_array("B", $optionVal); 
+	                	$option3Value = in_array("C", $optionVal); 
+	                	$option4Value = in_array("D", $optionVal); 
                 	?>
                 	<div id="hidden_div_multiple" style="<?php echo $divMultipleDisplay;?> padding:10px;">
                 		<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
 						<tr>
 						<td width="15%">Option 1</td>
-						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="A" <?php if($optionVal[0] == "A"){?> checked <?php }?>> A </td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="A" <?php if($option1Value == "1"){?> checked <?php }?>> A </td>
 						<td width="70%">
 							<?php
 							include 'fckeditor/fckeditor.php'; 
@@ -347,7 +350,7 @@ return true;
 						</tr>
 						<tr>
 						<td width="15%">Option 2</td>
-						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="B" <?php if($optionVal[1] == "B"){?> checked <?php }?>> B</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="B" <?php if($option2Value == "1"){?> checked <?php }?>> B</td>
 						<td width="70%">
 							<?php
 							include 'fckeditor/fckeditor.php'; 
@@ -363,7 +366,7 @@ return true;
 						</tr>
 						<tr>
 						<td width="15%">Option 3</td>
-						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="C" <?php if($optionVal[2] == "C"){?> checked <?php }?>> C</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="C" <?php if($option3Value == "1"){?> checked <?php }?>> C</td>
 						<td width="70%">
 							<?php
 							include 'fckeditor/fckeditor.php'; 
@@ -379,7 +382,7 @@ return true;
 						</tr>
 						<tr>
 						<td width="15%">Option 4</td>
-						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="D" <?php if($optionVal[3] == "D"){?> checked <?php }?>> D</td>
+						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="D" <?php if($option4Value == "1"){?> checked <?php }?>> D</td>
 						<td width="70%">
 							<?php
 							include 'fckeditor/fckeditor.php'; 
