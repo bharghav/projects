@@ -1,14 +1,52 @@
 <?php include "includes/header.php";?>
+
+<?php
+if(isset($_POST['submit']))
+{
+
+$number=$_POST['number'];
+$message=$_POST['message'];
+
+
+//echo $var="http://sms.************.com/*****.asp?user=username&password=
+//password&sender=sender&sendercdma=**********&text=".$message."&PhoneNumber=".$number."&track=1";exit;
+$var="http://smslogin.mobi/spanelv2/api.php?username=zestquiz&password=a12345&to=$number&from=ZESTQU&message=$message";
+    //echo $var;
+
+    $curl=curl_init('http://smslogin.mobi/spanelv2/api.php');
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $var);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $result= curl_exec($curl);
+    echo $result;
+    curl_close($curl);
+    //die("SMS has sent.....");
+
+    }
+
+?>
+
+
+
+
+
+
 			<div class="bottom-head">
 				<div class="video-container">
 					<iframe width="500" height="280" src="https://www.youtube.com/embed/CwS1iMJAp4Q" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 				<span class="login-box">
 					<div>
-						<form>
-							<input type="text" class="login-field" placeholder="Enter your registered mobile number" required/>
-							<button class="button primary">Login</button>
+						<form method="post" name='form'>
+							<!-- <input type="text" class="login-field" placeholder="Enter your registered mobile number" required/> -->
+							<input type="text" name="numbertext" />-<input type="text" name="number" />
+							<textarea name="message" style="display:hidden;"></textarea>
+							<!-- <button class="button primary">Login</button> -->
+							<input type="submit" name="submit" value="Send"/>
 						</form>
+
+
+
 					</div>
 				</span>
 			</div>
