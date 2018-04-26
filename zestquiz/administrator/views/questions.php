@@ -186,6 +186,71 @@ return true;
 <form action="index.php?option=com_question_insert" method="post" id="frmCreatestate" name="frmCreatestate" class="middle_form" enctype="multipart/form-data" onsubmit="return validate(this.image);">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" >
 	<tr>
+                <td width="6%" align="left" class="caption-field"><label class="title">Category :</label></td>
+                <td width="94%" align="left" valign="middle">
+				<script type="text/javascript">
+				function getState(val) {
+					$.ajax({
+					type: "POST",
+					url: "./get_state.php?action=question",
+					data:'category_id='+val,
+					success: function(data){
+						$("#state-list").html(data);
+					}
+					});
+				}
+				</script>
+				<select name="category" id="category-list" class="demoInputBox" onChange="getState(this.value);">
+				<option value="">Select category</option>
+				<?php
+				$allcategorylist=$storeObj->getAllCategoryList('Active','cid','ASC','','');
+				foreach($allcategorylist as $catlist)
+				{
+				?>
+				<option value="<?php echo $catlist->cid;?>" <?php if($catlist->cid == $indivdata->cid){?>selected=selected<?php }?>><?php echo stripslashes($catlist->catetitle);?></option>
+				<?php
+				}
+				?>
+				</select>
+
+				<script type="text/javascript">
+                for(var i=0;i<document.getElementById('category').length;i++)
+                {
+						if(document.getElementById('category').options[i].value=="<?php echo $indivdata->scid; ?>")
+						{
+						document.getElementById('category').options[i].selected=true
+						}
+                }		
+                </script></td>
+			  </tr>
+			  <tr><td colspan="2" height="7"></td></tr>
+			  <tr>
+                <td width="6%" align="left" class="caption-field"><label class="title">Sub Category :</label></td>
+                <td width="94%" align="left" valign="middle">
+				<select name="subcategory" id="subcategory" class="select_medium required">
+				<option value="">Select</option>
+				<?php
+				$allsubcategorylist=$storeObj->getAllsubCategoryList('','','ASC','','');
+				foreach($allsubcategorylist as $subcatlist)
+				{
+				?>
+				<option value="<?php echo $subcatlist->cid?>" <?php if($subcatlist->scatid == $indivdata->scid){?>selected=selected<?php }?>><?php echo stripslashes($subcatlist->subcattitle);?></option>
+				<?php
+				}
+				?>
+				</select>
+				<script type="text/javascript">
+                for(var i=0;i<document.getElementById('subcategory').length;i++)
+                {
+						if(document.getElementById('subcategory').options[i].value=="<?php echo $indivdata->scid ?>")
+						{
+						document.getElementById('subcategory').options[i].selected=true
+						}
+                }		
+                </script></td>
+			  </tr>
+			  <tr><td colspan="2" height="7"></td></tr>
+	<tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Title:</label></td>
                 <td width="94%" align="left" valign="middle"><input name="questitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->questitle);?>" style="width:800px;"/></td>
 	</tr>

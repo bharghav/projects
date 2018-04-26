@@ -117,7 +117,7 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
   function getsubCategoryAllData($id)
   {
 	global $callConfig;
-	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','scatid='.$id,'','','');
+	$query=$callConfig->selectQuery(TPREFIX.TBL_SUBCATEGORY,'*','cid='.$id,'','','');
 	return $callConfig->getAllRows($query);
   }
  

@@ -246,46 +246,38 @@ return true;
                 </script></td>
 			  </tr>
 			  <tr><td colspan="2" height="7"></td></tr>
-			  <tr>
+			<tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Sub Category :</label></td>
                 <td width="94%" align="left" valign="middle">
-				<!-- <select name="subcategory" id="subcategory" class="select_medium required">
+				<?php if(!empty($indivdata->spid)){?>
+
+				<select name="subcategory" id="subcategory" class="select_medium required">
 				<option value="">Select</option>
 				<?php
-				$allsubcategorylist=$storeObj->getAllsubCategoryList('Active','scid','ASC','','');
+				$allsubcategorylist=$storeObj->getAllsubCategoryList('','','ASC','','');
 				foreach($allsubcategorylist as $subcatlist)
 				{
 				?>
-				<option value="<?php echo $subcatlist->spid;?>"><?php echo stripslashes($subcatlist->prodtitle);?></option>
+				<option value="<?php echo $subcatlist->cid?>" <?php if($subcatlist->scatid == $indivdata->scid){?>selected=selected<?php }?>><?php echo stripslashes($subcatlist->subcattitle);?></option>
 				<?php
 				}
 				?>
-				</select> -->
-				
-				<select name="subcategory" id="state-list" class="demoInputBox">
-				<option value="">Select Subcategory</option>
 				</select>
-				<!-- <select name="subcategory" id="subcategory-list" class="demoInputBox">
-				<option value="">Select category</option>
-				<?php
-				$allsubcategorylist=$storeObj->getsubCategoryData($indivdata->scid);
-				foreach($allsubcategorylist as $subcatlist)
-				{
-				?>
-					<option value="<?php echo $subcatlist->scatid;?>" ><?php echo stripslashes($subcatlist->subcattitle);?></option>
-				<?php
-				}
-				?>
-				</select> -->
 				<script type="text/javascript">
                 for(var i=0;i<document.getElementById('subcategory').length;i++)
                 {
-						if(document.getElementById('subcategory').options[i].value=="<?php echo $indivdata->subcategory ?>")
+						if(document.getElementById('subcategory').options[i].value=="<?php echo $indivdata->scid ?>")
 						{
 						document.getElementById('subcategory').options[i].selected=true
 						}
                 }		
-                </script></td>
+                </script>
+                <?php }else{?>
+				<select name="subcategory" id="state-list" class="demoInputBox">
+				<option value="">Select Subcategory</option>
+				</select>
+				<?php }?>
+				</td>
 			  </tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 	<tr>
