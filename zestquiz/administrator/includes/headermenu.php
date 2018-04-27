@@ -85,13 +85,25 @@
 		<li><a href="index.php?option=com_question_insert">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&raquo;&nbsp;&nbsp;Add Question</a></li>
 		</ul>
       </li>
-	  <li id="catalog" <?php echo $left_blog_focus;?>><a class="top"  href="#">Blog</a>
+      <li id="catalog" <?php echo $left_testimonial_focus;?>><a class="top"  href="#">Testimonial</a>
+        <ul style="display: none; visibility: hidden; ">
+		 <li><a href="index.php?option=com_testimonialslist">Testimonials</a></li>
+		  <li><a href="index.php?option=com_testimonialslist_insert">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&raquo;&nbsp;&nbsp;Add Post</a></li>
+        </ul>
+      </li>
+      <li id="catalog" <?php echo $left_import_focus;?>><a class="top"  href="#">Import</a>
+        <ul style="display: none; visibility: hidden; ">
+		 <!-- <li><a href="index.php?option=com_import">Import</a></li> -->
+		  <li><a href="index.php?option=com_import_insert">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&raquo;&nbsp;&nbsp;Import</a></li>
+        </ul>
+      </li>
+	  <!-- <li id="catalog" <?php echo $left_blog_focus;?>><a class="top"  href="#">Blog</a>
         <ul style="display: none; visibility: hidden; ">
 		 <li><a href="index.php?option=com_blogpost">Posts</a></li>
 		  <li><a href="index.php?option=com_blogpost_insert">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&raquo;&nbsp;&nbsp;Add Post</a></li>
 		   <li><a href="index.php?option=com_blogcommnets">Comments</a></li>
         </ul>
-      </li>
+      </li> -->
 	  <?php /*?><li id="catalog" <?php echo $left_store_focus;?>><a class="top"  href="#">Store</a>
         <ul style="display: none; visibility: hidden; ">
 		 <li><a href="index.php?option=com_storecat">Category</a></li>

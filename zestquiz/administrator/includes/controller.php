@@ -223,6 +223,15 @@ $option="com_login";
 			$disptemp="views/testimonials.php";
 			$left_testimonial_focus='class="selected"';  
 			break;
+
+			case "com_import":
+			$disptemp="views/import.php";
+			$left_import_focus='class="selected"';  
+			break;
+			case "com_import_insert":
+			$disptemp="views/import.php";
+			$left_import_focus='class="selected"';  
+			break;
 			
 			case "com_iptrace":
 			$disptemp="views/iptrace.php";

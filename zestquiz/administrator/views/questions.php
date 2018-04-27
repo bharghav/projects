@@ -14,6 +14,7 @@ if($_POST['admininsert']=="Update"){
 if(isset($_GET['id']) && $_GET['id']!=""){
    $hdn_value="Update";
    $indivdata=$storeObj->getQuestionData($_GET['id']); 
+   print_r($indivdata);
    $hdn_in_up='class="button button_save"';
 } else { 
   $hdn_value="Submit";
@@ -173,6 +174,56 @@ function validate(fld)
 return true;
 }
 </script>
+
+</script>
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		// General options
+		mode : "textareas",
+		theme : "advanced",
+		plugins : "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
+
+		// Drop lists for link/image/media/template dialogs
+		/*template_external_list_url : "tinymce/examples/lists/template_list.js",
+		external_link_list_url : "tinymce/examples/lists/link_list.js",
+		external_image_list_url : "tinymce/examples/lists/image_list.js",
+		media_external_list_url : "tinymce/examples/lists/media_list.js",*/
+
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
+
+               // Extended valid elements
+         extended_valid_elements : "iframe[src|width|height|name|align|frameborder]",
+        
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
+</script>
  <div class="box">
 <div class="heading">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -200,6 +251,7 @@ return true;
 					});
 				}
 				</script>
+
 				<select name="category" id="category-list" class="demoInputBox" onChange="getState(this.value);">
 				<option value="">Select category</option>
 				<?php
@@ -207,7 +259,7 @@ return true;
 				foreach($allcategorylist as $catlist)
 				{
 				?>
-				<option value="<?php echo $catlist->cid;?>" <?php if($catlist->cid == $indivdata->cid){?>selected=selected<?php }?>><?php echo stripslashes($catlist->catetitle);?></option>
+				<option value="<?php echo $catlist->cid;?>" <?php if($catlist->cid == $indivdata->catid){?>selected=selected<?php }?>><?php echo stripslashes($catlist->catetitle);?></option>
 				<?php
 				}
 				?>
@@ -227,6 +279,11 @@ return true;
 			  <tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Sub Category :</label></td>
                 <td width="94%" align="left" valign="middle">
+                	<?php echo $subcatlist->subcattitle;
+                	echo $subcatlist->scatid;
+                	echo $indivdata->subcatid;
+                	?>
+				<?php if(!empty($indivdata->qid)){?>
 				<select name="subcategory" id="subcategory" class="select_medium required">
 				<option value="">Select</option>
 				<?php
@@ -234,7 +291,7 @@ return true;
 				foreach($allsubcategorylist as $subcatlist)
 				{
 				?>
-				<option value="<?php echo $subcatlist->cid?>" <?php if($subcatlist->scatid == $indivdata->scid){?>selected=selected<?php }?>><?php echo stripslashes($subcatlist->subcattitle);?></option>
+				<option value="<?php echo $subcatlist->cid?>" <?php if($subcatlist->scatid == $indivdata->subcatid){?>selected=selected<?php }?>><?php echo stripslashes($subcatlist->subcattitle);?></option>
 				<?php
 				}
 				?>
@@ -247,7 +304,12 @@ return true;
 						document.getElementById('subcategory').options[i].selected=true
 						}
                 }		
-                </script></td>
+                </script>
+                <?php }else{?>
+				<select name="subcategory" id="state-list" class="demoInputBox">
+				<option value="">Select Subcategory</option>
+				</select>
+				<?php }?></td>
 			  </tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 	<tr>
@@ -318,6 +380,8 @@ return true;
                 		}else{
                 			if($_GET['id']!= ''){ $divMultipleDisplay = "display: block;";$divSingleDisplay = "display: none;";}else{ $divMultipleDisplay = "display: none;";}
                 		}
+
+                		echo htmlspecialchars_decode($indivdata->option1);
                 	?>
                 	<div id="hidden_div_single" style="<?php echo $divSingleDisplay;?> padding:10px;">
                 		<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
@@ -325,15 +389,17 @@ return true;
 						<td width="15%">Option 1</td>
 						<td width="5%"><input type="radio" name="single_correctans" value="A" <?php if($indivdata->optionValue == "A"){?> checked <?php }?>> A </td>
 						<td width="70%">
+							<textarea name="option1" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option1));?></textarea>
+
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath1 = 'fckeditor/' ;//to change in web root
 							$oFCKeditor1 = new FCKeditor('option1');  //name of the form-field to be generated
 							$oFCKeditor1->BasePath	= $sBasePath1 ;
-							$oFCKeditor1->Value		= trim($indivdata->option1);//the matter that may be in db
+							$oFCKeditor1->Value		= trim(htmlspecialchars_decode($indivdata->option1));//the matter that may be in db
 							$oFCKeditor1->Height=170;
 							$oFCKeditor1->Width=900;
-							$oFCKeditor1->Create() ;
+							$oFCKeditor1->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -341,15 +407,16 @@ return true;
 						<td width="15%">Option 2</td>
 						<td width="5%"><input type="radio" name="single_correctans" value="B" <?php if($indivdata->optionValue == "B"){?> checked <?php }?>> B</td>
 						<td width="70%">
+							<textarea name="option2" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option2));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath2 = 'fckeditor/' ;//to change in web root
 							$oFCKeditor2 = new FCKeditor('option2');  //name of the form-field to be generated
 							$oFCKeditor2->BasePath	= $sBasePath2 ;
-							$oFCKeditor2->Value		= trim($indivdata->option2);//the matter that may be in db
+							$oFCKeditor2->Value		= trim(htmlspecialchars_decode($indivdata->option2));//the matter that may be in db
 							$oFCKeditor2->Height=170;
 							$oFCKeditor2->Width=900;
-							$oFCKeditor2->Create() ;
+							$oFCKeditor2->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -357,15 +424,16 @@ return true;
 						<td width="15%">Option 3</td>
 						<td width="5%"><input type="radio" name="single_correctans" value="C" <?php if($indivdata->optionValue == "C"){?> checked <?php }?>> C</td>
 						<td width="70%">
+							<textarea name="option3" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option3));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath3 = 'fckeditor/' ;//to change in web root
 							$oFCKeditor3 = new FCKeditor('option3');  //name of the form-field to be generated
 							$oFCKeditor3->BasePath	= $sBasePath3 ;
 							$oFCKeditor3->Value		= trim($indivdata->option3);//the matter that may be in db
 							$oFCKeditor3->Height=170;
 							$oFCKeditor3->Width=900;
-							$oFCKeditor3->Create() ;
+							$oFCKeditor3->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -373,15 +441,16 @@ return true;
 						<td width="15%">Option 4</td>
 						<td width="5%"><input type="radio" name="single_correctans" value="D" <?php if($indivdata->optionValue == "D"){?> checked <?php }?>> D</td>
 						<td width="70%">
+							<textarea name="option4" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option4));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath4 = 'fckeditor/' ;//to change in web root
 							$oFCKeditor4 = new FCKeditor('option4');  //name of the form-field to be generated
 							$oFCKeditor4->BasePath	= $sBasePath4 ;
 							$oFCKeditor4->Value		= trim($indivdata->option4);//the matter that may be in db
 							$oFCKeditor4->Height=170;
 							$oFCKeditor4->Width=900;
-							$oFCKeditor4->Create() ;
+							$oFCKeditor4->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -401,15 +470,16 @@ return true;
 						<td width="15%">Option 1</td>
 						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="A" <?php if($option1Value == "1"){?> checked <?php }?>> A </td>
 						<td width="70%">
+							<textarea name="option5" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option5));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath = 'fckeditor/' ;//to change in web root
 							$oFCKeditor = new FCKeditor('option5');  //name of the form-field to be generated
 							$oFCKeditor->BasePath	= $sBasePath ;
 							$oFCKeditor->Value		= trim($indivdata->option1);//the matter that may be in db
 							$oFCKeditor->Height=170;
 							$oFCKeditor->Width=900;
-							$oFCKeditor->Create() ;
+							$oFCKeditor->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -417,15 +487,16 @@ return true;
 						<td width="15%">Option 2</td>
 						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="B" <?php if($option2Value == "1"){?> checked <?php }?>> B</td>
 						<td width="70%">
+							<textarea name="option5" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option5));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath = 'fckeditor/' ;//to change in web root
 							$oFCKeditor = new FCKeditor('option6');  //name of the form-field to be generated
 							$oFCKeditor->BasePath	= $sBasePath ;
 							$oFCKeditor->Value		= trim($indivdata->option2);//the matter that may be in db
 							$oFCKeditor->Height=170;
 							$oFCKeditor->Width=900;
-							$oFCKeditor->Create() ;
+							$oFCKeditor->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -433,15 +504,16 @@ return true;
 						<td width="15%">Option 3</td>
 						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="C" <?php if($option3Value == "1"){?> checked <?php }?>> C</td>
 						<td width="70%">
+							<textarea name="option7" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option7));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath = 'fckeditor/' ;//to change in web root
 							$oFCKeditor = new FCKeditor('option7');  //name of the form-field to be generated
 							$oFCKeditor->BasePath	= $sBasePath ;
-							$oFCKeditor->Value		= trim($indivdata->option3);//the matter that may be in db
+							$oFCKeditor->Value		= trim($indivdata->option7);//the matter that may be in db
 							$oFCKeditor->Height=170;
 							$oFCKeditor->Width=900;
-							$oFCKeditor->Create() ;
+							$oFCKeditor->Create() ;*/
 							?>
 						</td>
 						</tr>
@@ -449,15 +521,16 @@ return true;
 						<td width="15%">Option 4</td>
 						<td width="5%"><input type="checkbox" name="multiple_correctans[]" value="D" <?php if($option4Value == "1"){?> checked <?php }?>> D</td>
 						<td width="70%">
+							<textarea name="option8" rows="4" cols="130" ><?php echo trim(htmlspecialchars_decode($indivdata->option8));?></textarea>
 							<?php
-							include 'fckeditor/fckeditor.php'; 
+							/*include 'fckeditor/fckeditor.php'; 
 							$sBasePath = 'fckeditor/' ;//to change in web root
 							$oFCKeditor = new FCKeditor('option8');  //name of the form-field to be generated
 							$oFCKeditor->BasePath	= $sBasePath ;
 							$oFCKeditor->Value		= trim($indivdata->option4);//the matter that may be in db
 							$oFCKeditor->Height=170;
 							$oFCKeditor->Width=900;
-							$oFCKeditor->Create() ;
+							$oFCKeditor->Create() ;*/
 							?>
 						</td>
 						</tr>

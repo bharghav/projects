@@ -72,6 +72,64 @@ class testimonialsClass
 		$callConfig->headerRedirect("index.php?option=com_testimonialslist&ferr=Testimonial deletion failed");
 	}
 	}
+
+	function importInfo()
+	{
+		if(isset($_POST["Import"])){
+		
+
+		 $filename=$_FILES["file"]["tmp_name"];
+		
+
+		 if($_FILES["file"]["size"] > 0)
+		 {
+
+		  	$file = fopen($filename, "r");
+	         while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
+	         {
+	    
+	          //It wiil insert a row to our subject table from our csv file`
+	           //$sql = "INSERT into subject (`SUBJ_ID`,`SUBJ_CODE`, `SUBJ_DESCRIPTION`, `UNIT`, `PRE_REQUISITE`,COURSE_ID, `AY`, `SEMESTER`) 
+	            	//values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]','$emapData[4]','$emapData[5]','$emapData[6]','$emapData[7]')";
+
+	         	$sql = "INSERT into tb_questions (`questionID`,`question`,`questionType`,`questionMarks`) 
+	            	values('$emapData[0]','$emapData[1]','$emapData[6]','$emapData[8]')";
+	         
+	         //we are using mysql_query function. it returns a resource on true else False on error
+	          	$result = mysql_query( $sql);
+	          	$quesinsertId = mysql_insert_id();
+
+	          	echo $optionssql = "INSERT into tb_questionoptions (`qid`,`option1`,`option2`,`option3`,`option4`,`optionValue`) 
+	            	values('$quesinsertId','$emapData[2]','$emapData[3]','$emapData[4]','$emapData[5]','$emapData[7]')";
+	            $optionssqlresult = mysql_query( $optionssql );
+
+				if(! $result )
+				{
+					echo "<script type=\"text/javascript\">
+							alert(\"Invalid File:Please Upload CSV File.\");
+							window.location = \"index.php\"
+						</script>";
+				
+				}
+
+	         }
+	         fclose($file);
+	         //throws a message if data successfully imported to mysql database from excel file
+	         echo "<script type=\"text/javascript\">
+						alert(\"CSV File has been successfully Imported.\");
+						window.location = \"index.php\"
+					</script>";
+	        
+			 
+
+			 //close of connection
+			mysql_close($conn); 
+				
+		 	
+			
+		 }
+	}
+	}	 
 	
 	/// Product category  
 }	
