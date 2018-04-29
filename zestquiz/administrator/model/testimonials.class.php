@@ -92,22 +92,22 @@ class testimonialsClass
 	           //$sql = "INSERT into subject (`SUBJ_ID`,`SUBJ_CODE`, `SUBJ_DESCRIPTION`, `UNIT`, `PRE_REQUISITE`,COURSE_ID, `AY`, `SEMESTER`) 
 	            	//values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]','$emapData[4]','$emapData[5]','$emapData[6]','$emapData[7]')";
 
-	         	$sql = "INSERT into tb_questions (`questionID`,`question`,`questionType`,`questionMarks`) 
-	            	values('$emapData[0]','$emapData[1]','$emapData[6]','$emapData[8]')";
+	         	$sql = "INSERT into tb_questions (`catid`,`subcatid`,`subid`,`questionID`,`question`,`questionType`,`questionMarks`) 
+	            	values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]','$emapData[4]','$emapData[9]','$emapData[11]')";
 	         
 	         //we are using mysql_query function. it returns a resource on true else False on error
 	          	$result = mysql_query( $sql);
 	          	$quesinsertId = mysql_insert_id();
 
-	          	echo $optionssql = "INSERT into tb_questionoptions (`qid`,`option1`,`option2`,`option3`,`option4`,`optionValue`) 
-	            	values('$quesinsertId','$emapData[2]','$emapData[3]','$emapData[4]','$emapData[5]','$emapData[7]')";
+	          	 $optionssql = "INSERT into tb_questionoptions (`qid`,`option1`,`option2`,`option3`,`option4`,`optionValue`) 
+	            	values('$quesinsertId','$emapData[5]','$emapData[6]','$emapData[7]','$emapData[8]','$emapData[10]')";
 	            $optionssqlresult = mysql_query( $optionssql );
 
 				if(! $result )
 				{
 					echo "<script type=\"text/javascript\">
 							alert(\"Invalid File:Please Upload CSV File.\");
-							window.location = \"index.php\"
+							window.location = \"index.php?option=com_question&ferr=Question >> Question creation failed\"
 						</script>";
 				
 				}
@@ -117,7 +117,7 @@ class testimonialsClass
 	         //throws a message if data successfully imported to mysql database from excel file
 	         echo "<script type=\"text/javascript\">
 						alert(\"CSV File has been successfully Imported.\");
-						window.location = \"index.php\"
+						window.location = \"index.php?option=com_question&err=Question >> Question created successfully\"
 					</script>";
 	        
 			 
