@@ -1,0 +1,226 @@
+@charset "utf-8";
+/* CSS Document */
+/*
+font-family: 'Nanum Pen Script', cursive;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Sue Ellen Francisco', cursive;
+*/
+html, body {font-family: 'Nanum Pen Script', cursive;font-size: 12px;color:#343434;margin: 0;padding: 0;overflow-x: hidden;box-sizing: border-box;background-color: #f5f5f5;}
+.main-container {width:100%;box-sizing: border-box;}
+.container {max-width: 80%;box-sizing: border-box;margin: auto;width: 1280px;}
+.margin-all {margin: 10px;}.padding-all {padding: 10px;}.center {text-align: center;}.left {text-align: left;}.align-center {text-align: center;}.align-left {text-align: left;}.align-right {text-align: right;}ul, li, a {margin: 0;padding: 0;text-decoration: none;vertical-align: baseline;color: #fff !important;}.clear {clear: both;}
+.button {font-family: 'Nanum Pen Script', cursive;padding: 5px 20px;text-decoration: none !important;border-radius: 5px;font-size: 2.2rem !important;box-sizing: border-box;margin-top: 2px;display: inline-block;line-height: 2.3rem;font-weight: bold;outline: none;}
+.button.primary {background-color: #ffcc00;color: #343434}
+.header {width: 100%;box-sizing: border-box;background: linear-gradient(270deg, #203E5F, #4322c5);background-size: 200% 200%;-webkit-animation: rotatebg 30s ease infinite;-moz-animation: rotatebg 30s ease infinite;animation: rotatebg 30s ease infinite;font-family: 'Nanum Pen Script', cursive;padding: 2% 5% 8% 5%;overflow: hidden;position: relative;}
+.header:before {content: ""; position: absolute;width: 100%;display: block;bottom: 0;left: 0;top: 0;right: 0; background-image: url(../images/Head-BG.svg);opacity: 0.05;z-index: 0;}
+.header:after {content: "";position: absolute;width: 100%;display: block;bottom: 0;left: 0;background-image: url(../images/page-bottom-curve.svg);height: 14vh;background-size: cover;z-index: 10;}
+.header div {position: relative;z-index: 1;}.show {display: block !important;}.hide {display: none !important;}
+.header .icon-logo {width: 300px;height: 60px;background-size: cover;display: inline-block;z-index: 2;}
+h1.title {font-family: 'Permanent Marker', cursive;font-size: 2.5rem;letter-spacing: 3px;margin-bottom: 60px;font-weight: 300;}
+h2.title {font-family: 'Permanent Marker', cursive;font-size: 1.9rem;letter-spacing: 3px;}
+h3.title {font-family: 'Permanent Marker', cursive;font-size: 1.5rem;letter-spacing: 3px;}
+
+
+.section h1.title {background-image: url(../images/brush-effect.svg);background-repeat: no-repeat;display: inline-block;background-size: 130px;background-position: 2px 0px;height: 79px;line-height: 60px;}
+.header ul {float: right;}
+.header ul li {list-style: none;float: left;}
+.header a {padding: 5px 20px;color: #fff;font-size: 2.5rem;}
+.header a:hover {text-decoration: underline;}
+.header .button {margin-left: 20px;}
+.header .video-container {
+    box-sizing: border-box;
+    border-left: 25px solid #fff;
+    box-shadow: 0px 2px 6px #00000038;
+    border-top: 5px solid #fff;
+    border-right: 25px solid #fff;
+    border-bottom: 5px solid #fff;
+    border-radius: 10px;
+    height: 290px;
+    display: inline-block;transform: rotate(-4deg);
+    margin: 0 25px;
+}
+span.login-box {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 9%;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 40%;
+    text-align: right;
+    margin-left: 5%;
+}
+input.login-field {
+    font-family: 'Nanum Pen Script', cursive;
+    width: 70%;
+    border: none;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    font-size: 3.2rem;
+    display: inline-block;
+    outline: none;
+	color: #333333;
+	height: 80px;
+}
+.header ::-webkit-input-placeholder {color: #989595;font-size: 2rem;}
+.header ::-moz-placeholder {color: #989595;font-size: 2rem;}
+.header :-ms-input-placeholder {color: #989595;font-size: 2rem;}
+.header :-moz-placeholder {color: #989595;font-size: 2rem;}
+.header span.login-box .button {
+    margin: 0;
+    height: 80px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -4px;
+    vertical-align: top;
+    cursor: pointer;
+    font-size: 2.8rem !important;
+	border: none;
+}
+.bottom-head {margin-top: 9%;}
+.big-text {
+    width: 90%;
+    margin: 0 auto;
+	text-align: center;
+	margin-top: 8%;
+}
+.header .big-text h1.title {color: #fff;font-family: 'Permanent Marker', cursive;font-size: 3rem;letter-spacing: 5px;font-weight: 100;margin-bottom: 10px;}
+.header .big-text p.sub-title {color: #fff;font-family: 'Sue Ellen Francisco', cursive;font-size: 2.5rem;letter-spacing: 1px;margin-top: 0;}
+.data-popup {position: fixed;width: 100%;bottom: 0;background: #fff;box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);display: none;}
+.popup-head .icon-close {font-family: 'Permanent Marker', cursive;float: right;font-size: 14px;font-weight: 800;vertical-align: top;margin: 10px 20px;cursor: pointer;}
+.popup-head .title {display: inline-block;vertical-align: top;margin: 10px 20px;}
+.popup-content {min-height: 200px;padding: 10px;}
+.popup-footer {padding: 10px;}
+.signup-popup {position: fixed;width: 400px;left: 30vw;top: 18vh;border-radius: 4px;background: #fff;box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.17);z-index: 10;display: none;}
+.field {
+    display: inline-block;
+    clear: both;
+    text-align: left;
+	margin-bottom: 15px;
+}
+.field label {
+    display: block;
+    font-size: 18px;
+}
+.field input {
+    height: 35px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.popup-footer .text-link {font-size: 16px;margin: 5px;}
+
+/*Features Section*/
+.block {display:inline-block;margin: 40px 20px;min-width:100px;max-width: 100%;width: 300px;}
+.block .title {font-size: 26px;letter-spacing: 0.8px;font-family: 'Nanum Pen Script', cursive;font-weight: 500;color: #2b2b2b;margin-top: 0;}
+.section.features, .section.testmonials {padding-bottom: 60px;}
+/*Testmonials Section*/
+.section.testmonials {background-image: url(../images/pattren-bg.png);padding: 60px 20px;}
+span.user-image {width: 150px;border-radius: 100px;display: inline-block}
+span.user-image img {width: 100%;border-radius: 100px;}
+.section.testmonials .container {margin-top: 30px;}
+.section.testmonials h3.title {margin-bottom: 20px;font-family: 'Sue Ellen Francisco', cursive;color: #343434;}
+.section.testmonials p {font-family: 'Nanum Pen Script', cursive;font-size: 20px;color: #343434;letter-spacing: 0.5px;}
+/* Counter CSS*/
+.counter-container {padding: 50px 20px;box-sizing: border-box;}
+.counter-container {overflow: auto;}
+.counter-container .counter {width: 24.5%;float: left;text-align: center;}
+.counter-container .counter .count {font-family: 'Nanum Pen Script', cursive;position: relative;color: #343434;font-size: 34px;font-weight: 700;}
+.counter-container .counter .count:after {font-family: 'Nanum Pen Script', cursive;content: "";position: absolute;bottom: -5px;width: 86px;height: 4px;background-color: #fdcd08;left: -20px;}
+.counter-container .counter p.text {font-family: 'Nanum Pen Script', cursive;color: #333;text-transform: uppercase;font-size: 18px;font-weight: 700;}
+
+/*Footer CSS*/
+.footer {font-family: 'Nanum Pen Script', cursive;background: #434343;color: #ffffff;padding: 40px 20px;}
+.footer .icon-logo {width: 130px;height: 60px;background-repeat: no-repeat;margin: 15px 15px 40px 15px;}
+.footer p {font-family: 'Nanum Pen Script', cursive;color: #fff;font-size: 15px;letter-spacing: 0.8px; margin: 15px 0 0 0;}
+.footer-menu a {color: #fff;font-size: 18px;margin: 8px;font-weight: 100;}
+.footer-menu {margin-bottom: 20px;}
+
+/*Icons CSS*/
+[class*="icon-"] {display: inline-block;background-size: contain !important;background-repeat: no-repeat !important;}
+.icon-concept {background: url(../images/concept.svg);width: 80px;height: 80px;}
+.icon-multi-level {background: url(../images/multi-level.svg);width: 80px;height: 80px;}
+.icon-random-quiz {background: url(../images/random-quiz.svg);width: 80px;height: 80px;}
+.icon-mock-test {background: url(../images/mock-test.svg);width: 80px;height: 80px;}
+.icon-dashboards {background: url(../images/dashboards.svg);width: 80px;height: 80px;}
+.icon-perfomance {background: url(../images/perfomance.svg);width: 80px;height: 80px;}
+.icon-fpo {background: url(../images/fpo.svg);width: 80px;height: 80px;}
+.icon-logo {background: url(../images/Logo-light.png);}
+
+@media (max-width: 480px) {
+
+span.login-box {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 9%;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+    text-align: right;
+    margin-left: 0%;
+    border:0px solid red;
+}
+input.login-field {
+    font-family: 'Nanum Pen Script', cursive;
+    width: 68%;
+    border: none;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    font-size: 3.2rem;
+    display: inline-block;
+    outline: none;
+    color: #333333;
+    height: 80px;
+    border:0px solid red;
+    float: left;
+}
+
+}
+
+@media (max-width: 767px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+/*Key Frames*/
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+@keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@-webkit-keyframes rotatebg {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes rotatebg {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes rotatebg { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}

@@ -73,11 +73,11 @@ class userClass
 	return $callConfig->getRow($query);
  } 
  
-  function userRegisteration($post)
+  function userRegistration($post)
 	{
 	global $callConfig;
-	$fieldnames=array('us_name'=>$post['user_name'],'`password`'=>$callConfig->passwordEncrypt($post['user_pwd']),'email'=>$post['user_email'],'roletype'=>'level2','status'=>'Inactive');
-	$res=$callConfig->insertRecord(TPREFIX.TBL_ADMIN,$fieldnames);
+	$fieldnames=array('username'=>$post['user_name'],'`password`'=>$callConfig->passwordEncrypt($post['user_pwd']),'email'=>$post['user_email'],'roletype'=>'level2','status'=>'Inactive');
+	$res=$callConfig->insertRecord(TPREFIX.TBL_USERREG,$fieldnames);
 	if($res!="")
 	{
 	    $fieldnames2=array('userid'=>$res,'username'=>$post['user_name'],'b_firstname'=>$post['b_firstname'],'b_lastname'=>$post['b_lastname'],'b_country'=>$post['b_country'],'b_state'=>$post['b_state'],'b_address'=>mysql_real_escape_string($post['b_address']),'b_city'=>$post['b_city'],'b_zipcode'=>$post['b_zipcode'],'b_fax'=>$post['b_fax'],'b_phoneno'=>$post['b_phoneno'],'s_firstname'=>$post['s_firstname'],'s_lastname'=>$post['s_lastname'],'s_country'=>$post['s_country'],'s_state'=>$post['s_state'],'s_address'=>mysql_real_escape_string($post['s_address']),'s_city'=>$post['s_city'],'s_zipcode'=>$post['s_zipcode'],'s_fax'=>$post['s_fax'],'s_phoneno'=>$post['s_phoneno']);

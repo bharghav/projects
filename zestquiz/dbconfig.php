@@ -39,6 +39,8 @@ define('TBL_SUBCATEGORY','subcategory');
 define('TBL_SUBJECTS','subjects');
 define('TBL_QUESTION','questions');
 define('TBL_QUESTIONOPTIONS','questionoptions');
+define('TBL_USERREG','users_registration');
+define('TBL_TESTIMONIALS','testimonials');
 
 define('TBL_STORECATEGORY','store_category');
 define('TBL_STOREPRODUCTS','store_products');

@@ -14,7 +14,7 @@ if($_POST['admininsert']=="Update"){
 if(isset($_GET['id']) && $_GET['id']!=""){
    $hdn_value="Update";
    $indivdata=$storeObj->getQuestionData($_GET['id']); 
-   //print_r($indivdata);
+   print_r($indivdata);
    $hdn_in_up='class="button button_save"';
 } else { 
   $hdn_value="Submit";
@@ -54,18 +54,17 @@ if($option!="com_question_insert"){
           <thead>
             <tr height="25">
               <td width="20" align="center" valign="middle">sno</td>
-			   <td width="20" align="left" valign="middle" >QuestionID</td>
-			   <td width="307" align="left" valign="middle" >Question</td>
-              <?php /*?><td width="750" align="left" valign="middle" class="sort">
+			   <td width="227" align="left" valign="middle" >title</td>
+              <td width="750" align="left" valign="middle" class="sort">
 					<div >
 					<a href="index.php?option=com_question&ord=ASC&fld=catetitle" class="up" title="up"></a>
 					<a href="index.php?option=com_question&ord=DESC&fld=catetitle" class="down" title="down"></a>
 					</div>
-				</td> <?php */?>
+				</td>
  			 <!-- <td width="116" align="center" valign="middle" >Image</td> -->
-			  <td width="35" align="center" valign="middle" >Status</td>
-              <td width="23" align="center" valign="middle" >Edit</td>
-			  <td width="20" align="center" valign="middle" >Delete</td>
+			  <td width="45" align="center" valign="middle" >Status</td>
+              <td width="33" align="center" valign="middle" >Edit</td>
+			  <td width="40" align="center" valign="middle" >Delete</td>
             </tr>
           </thead>
 			<tbody>
@@ -76,9 +75,8 @@ if($option!="com_question_insert"){
 					?>
 			<tr height="22">
 			<td align="center" valign="middle"><?=($ii+1);?></td>
-			<td  align="left" valign="middle"><?php echo stripslashes($allforum_list->questionID);?></td>
-			<td  align="left" valign="middle"><?php echo stripslashes($allforum_list->question);?></td>
-			<?php /*?><!-- <td align="center" valign="middle"><img src="../uploads/store/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> --> <?php */?>
+			<td colspan="2" align="left" valign="middle"><?php echo stripslashes($allforum_list->questitle);?></td>
+			<!-- <td align="center" valign="middle"><img src="../uploads/store/category/thumbs/<?php echo $allforum_list->image;?>" width="50" height="50" /></td> -->
 			<td align="center" valign="middle"><?php echo $allforum_list->status;?></td>
 			<td align="center" valign="middle"x><a title="edit" href="index.php?option=com_question_insert&id=<?php echo $allforum_list->qid;?>"><img src="allfiles/icon_edit.png" alt="Edit" border="0"></a></td>
 			<td align="center" valign="middle">
@@ -245,21 +243,10 @@ return true;
 				function getState(val) {
 					$.ajax({
 					type: "POST",
-					url: "./get_state.php",
+					url: "./get_state.php?action=question",
 					data:'category_id='+val,
 					success: function(data){
 						$("#state-list").html(data);
-					}
-					});
-				}
-
-				function getQuestion(val) {
-					$.ajax({
-					type: "POST",
-					url: "./get_question.php",
-					data:'subject_id='+val,
-					success: function(data){
-						$("#subjects-list").html(data);
 					}
 					});
 				}
@@ -292,19 +279,19 @@ return true;
 			  <tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Sub Category :</label></td>
                 <td width="94%" align="left" valign="middle">
-                	<?php //echo $subcatlist->subcattitle;
-                	//echo $subcatlist->scatid;
-                	//echo $indivdata->subcatid;
+                	<?php echo $subcatlist->subcattitle;
+                	echo $subcatlist->scatid;
+                	echo $indivdata->subcatid;
                 	?>
 				<?php if(!empty($indivdata->qid)){?>
-				<select name="subcategory" id="subcategory" class="select_medium required" onChange="getQuestion(this.value);">
+				<select name="subcategory" id="subcategory" class="select_medium required">
 				<option value="">Select</option>
 				<?php
 				$allsubcategorylist=$storeObj->getAllsubCategoryList('','','ASC','','');
 				foreach($allsubcategorylist as $subcatlist)
 				{
 				?>
-				<option value="<?php echo $subcatlist->scatid?>" <?php if($subcatlist->scatid == $indivdata->subcatid){?>selected=selected<?php }?>><?php echo stripslashes($subcatlist->subcattitle);?></option>
+				<option value="<?php echo $subcatlist->cid?>" <?php if($subcatlist->scatid == $indivdata->subcatid){?>selected=selected<?php }?>><?php echo stripslashes($subcatlist->subcattitle);?></option>
 				<?php
 				}
 				?>
@@ -312,63 +299,24 @@ return true;
 				<script type="text/javascript">
                 for(var i=0;i<document.getElementById('subcategory').length;i++)
                 {
-						if(document.getElementById('subcategory').options[i].value=="<?php echo $indivdata->subcatid?>")
+						if(document.getElementById('subcategory').options[i].value=="<?php echo $indivdata->scid ?>")
 						{
 						document.getElementById('subcategory').options[i].selected=true
 						}
                 }		
                 </script>
                 <?php }else{?>
-				<select name="subcategory" id="state-list" class="demoInputBox" onChange="getQuestion(this.value);">
+				<select name="subcategory" id="state-list" class="demoInputBox">
 				<option value="">Select Subcategory</option>
 				</select>
 				<?php }?></td>
 			  </tr>
 			  <tr><td colspan="2" height="7"></td></tr>
 	<tr>
-
-	<tr><td colspan="2" height="7"></td></tr>
-			  <tr>
-                <td width="6%" align="left" class="caption-field"><label class="title">Subject :</label></td>
-                <td width="94%" align="left" valign="middle">
-                	<?php //echo $subcatlist->subcattitle;
-                	//echo $subcatlist->scatid;
-                	//echo $indivdata->subcatid;
-                	?>
-				<?php if(!empty($indivdata->qid)){?>
-				<select name="subjects" id="subjects" class="select_medium required" >
-				<option value="">Select</option>
-				<?php
-				$allsubjectslist=$storeObj->getAllSubjectsList('','','ASC','','');
-				foreach($allsubjectslist as $subjectlist)
-				{
-				?>
-				<option value="<?php echo $subjectlist->spid?>" <?php if($subjectlist->spid == $indivdata->subid){?>selected=selected<?php }?>><?php echo stripslashes($subjectlist->subjtitle);?></option>
-				<?php
-				}
-				?>
-				</select>
-				<script type="text/javascript">
-                for(var i=0;i<document.getElementById('subjects').length;i++)
-                {
-						if(document.getElementById('subjects').options[i].value=="<?php echo $indivdata->subid ?>")
-						{
-						document.getElementById('subjects').options[i].selected=true
-						}
-                }		
-                </script>
-                <?php }else{?>
-				<select name="subjects" id="subjects-list" class="demoInputBox">
-				<option value="">Select Subjects</option>
-				</select>
-				<?php }?></td>
-			  </tr>
-			  <tr><td colspan="2" height="7"></td></tr>
-	<?php /*?><tr>
                 <td width="6%" align="left" class="caption-field"><label class="title">Title:</label></td>
                 <td width="94%" align="left" valign="middle"><input name="questitle" class="text_large required" type="text" value="<?php echo  stripslashes($indivdata->questitle);?>" style="width:800px;"/></td>
 	</tr>
-			  <tr><td colspan="2" height="7"></td></tr><?php */?>
+			  <tr><td colspan="2" height="7"></td></tr>
 			    <?php /* ?><tr>
                 <td align="left" valign="top" class="caption-field"><label class="title">Description:</label></td>
                 <td align="left" valign="middle" class="caption-field"><textarea name="bigtext" id="bigtext" cols="150" rows="2"><?php echo  stripslashes($indivdata->bigtext);?></textarea></td>

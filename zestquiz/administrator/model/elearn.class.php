@@ -220,12 +220,6 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	return $callConfig->getRow($query);
  }
  
- function getsubjectsAllData($id)
-  {
-	global $callConfig;
-	echo $query=$callConfig->selectQuery(TPREFIX.TBL_SUBJECTS,'*','scid='.$id,'','','');
-	return $callConfig->getAllRows($query);
-  }
 	function insertSubjects($post)
 	{
 	global $callConfig;
@@ -336,7 +330,7 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	exit;*/
 	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
-	$fieldnames=array('catid'=>$post['category'],'subcatid'=>$post['subcategory'],'subid'=>$post['subjects'],'questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['question']),'questionType'=>mysql_real_escape_string($post['questype']),'questionMarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['question']),'questionType'=>mysql_real_escape_string($post['questype']),'questionMarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
 	$res=$callConfig->insertRecord(TPREFIX.TBL_QUESTION,$fieldnames);
 	if($res!="")
 	{
@@ -365,7 +359,7 @@ function getAllsubCategoryList($sortfield,$order,$start,$limit)
 	$titleslug=$callConfig->remove_special_symbols($post['questitle']);
 	$multpleArray = implode(',',$post['multiple_correctans']);
 	//$image = $callConfig->freeimageUploadcomncode("cat",'image',"../uploads/category/","../uploads/category/thumbs/",$post['hdn_image'],208,95);'image'=>$image,
-	$fieldnames=array('catid'=>$post['category'],'subcatid'=>$post['subcategory'],'subid'=>$post['subjects'],'questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['question']),'questionType'=>mysql_real_escape_string($post['questype']),'questionMarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
+	$fieldnames=array('questitle'=>mysql_real_escape_string($post['questitle']),'questitle_slug'=>$titleslug,'question'=>mysql_real_escape_string($post['question']),'questionType'=>mysql_real_escape_string($post['questype']),'questionMarks'=>mysql_real_escape_string($post['quesmarks']),'status'=>$post['status']);
 	$res=$callConfig->updateRecord(TPREFIX.TBL_QUESTION,$fieldnames,'qid',$post['hdn_id']);
 	if($res==1)
 	{

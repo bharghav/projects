@@ -77,9 +77,9 @@ if($whichblogMETA->title!="")echo "The Super Teens - Blog ".stripslashes($whichb
 <link rel="icon" type="image/gif" href="animated_favicon1.gif">
 <link href="styles.css" rel="stylesheet" type="text/css" />
 <?php echo stripslashes($sitedata->googleanalytics);?>
-<!doctype html>
+<!-- <!doctype html>
 <html>
-<head>
+<head> -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">

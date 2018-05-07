@@ -68,7 +68,7 @@ function validate()
 document.frmCreatestate.submit();
 return true;
 }
-</script>
+
  <div class="box">
 <div class="heading">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">

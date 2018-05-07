@@ -6,9 +6,9 @@ include('includes/dbconnection.php');
 global $callConfig;
 include("model/elearn.class.php");
 $forumObj=new elearnClass();
-//echo $_REQUEST['action'];
+echo $_REQUEST['action'];
 
-/*if($_REQUEST['action'] == "question"){ echo "question"; exit;
+if($_REQUEST['action'] == "question"){
 		if(!empty($_POST["category_id"])) {
 		$allsubcategorydrop=$forumObj->getsubCategoryAllData($_POST["category_id"]);
 		//echo "<pre>";
@@ -24,7 +24,7 @@ $forumObj=new elearnClass();
 		}
 	}
 }
-else{*/
+else{
 	if(!empty($_POST["category_id"])) {
 	echo $_POST["category_id"];
 	//$query ="SELECT * FROM tb_category WHERE countryID = '" . $_POST["country_id"] . "'";
@@ -43,6 +43,6 @@ else{*/
 <?php
 	}
 }
-//}
+}
 
 ?>

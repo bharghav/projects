@@ -1,52 +1,14 @@
-<?php include "includes/header.php";?>
-
-<?php
-if(isset($_POST['submit']))
-{
-
-$number=$_POST['number'];
-$message=$_POST['message'];
-
-
-//echo $var="http://sms.************.com/*****.asp?user=username&password=
-//password&sender=sender&sendercdma=**********&text=".$message."&PhoneNumber=".$number."&track=1";exit;
-$var="http://smslogin.mobi/spanelv2/api.php?username=zestquiz&password=a12345&to=$number&from=ZESTQU&message=$message";
-    //echo $var;
-
-    $curl=curl_init('http://smslogin.mobi/spanelv2/api.php');
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $var);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $result= curl_exec($curl);
-    echo $result;
-    curl_close($curl);
-    //die("SMS has sent.....");
-
-    }
-
-?>
-
-
-
-
-
-
-			<div class="bottom-head">
+<?php require_once 'templates/header.php';?>
+<div class="bottom-head">
 				<div class="video-container">
-					<iframe width="500" height="280" src="https://www.youtube.com/embed/CwS1iMJAp4Q" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<iframe width="500" height="280" src="https://www.youtube.com/embed/S_yqSOIEfTk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 				<span class="login-box">
 					<div>
-						<form method="post" name='form'>
-							<!-- <input type="text" class="login-field" placeholder="Enter your registered mobile number" required/> -->
-							<input type="text" name="numbertext" />-<input type="text" name="number" />
-							<textarea name="message" style="display:hidden;"></textarea>
-							<!-- <button class="button primary">Login</button> -->
-							<input type="submit" name="submit" value="Send"/>
+						<form>
+							<input type="text" class="login-field" placeholder="Enter your registered mobile number" required/>
+							<button class="button primary">Login</button>
 						</form>
-
-
-
 					</div>
 				</span>
 			</div>
@@ -54,7 +16,8 @@ $var="http://smslogin.mobi/spanelv2/api.php?username=zestquiz&password=a12345&to
 				<h1 class="title">Are you ready for exams...?</h1>
 				<p class="sub-title">Zest quiz is the biggest platfrom for you to prepare yourself for any exam at any time.</p>
 			</div>
-		</div><!--Headder-->
+		</div>
+<!--Headder-->
 		<div class="content">
 			<div class="section align-center features">
 				<div class="section-title">
@@ -101,7 +64,51 @@ $var="http://smslogin.mobi/spanelv2/api.php?username=zestquiz&password=a12345&to
 				<div class="counter"><span class="count">10000</span> <p class="text">Happy Students</p></div>
 				<div class="counter"><span class="count">986</span> <p class="text">Tests Taken</p></div>
 				<div class="counter"><span class="count">400</span> <p class="text">Total Topics</p></div>
-				<div class="counter"><span class="count">53</span> <p class="text">Educational Experts Transplantation</p></div>
+				<div class="counter"><span class="count">53</span> <p class="text">Educational Experts</p></div>
 			</div><!--counter-container-->
 		</div><!--Content -END-->
-<?php include "includes/footer.php";?>
+
+		<?php /*?>
+		<div class="footer row align-center">
+			<span class="icon-logo"></span>
+			<div class="clear footer-menu">
+				<a href="javascript:void(0)">Terms & Conditions</a> | <a href="javascript:void(0)">Contact Us</a> | <a href="javascript:void(0)">Pricing & Information</a>
+			</div>
+			<p>Copyright © 2018 zestquiz.com All Rights Reserved</p>
+		</div>
+		<div class="data-popup">
+			<div class="popup-head"><h3 class="title">Popup-title</h3> <span class="icon-close">X</span></div>
+			<div class="popup-content">
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+			</div>
+		</div>
+		<div class="signup-popup">
+			<div class="popup-head"><h3 class="title">Sign Up</h3> <span class="icon-close">X</span></div>
+			<div class="popup-content align-center">
+				<div class="field">
+					<label>Full Name</label>
+					<input type="text" placeholder="First name & Last Name" class="textbox"/>
+				</div>
+				<br/>
+				<div class="field">
+					<label>Phone Number</label>
+					<input type="number" placeholder="Mobile number" class="textbox"/>
+				</div>
+				<br/>
+				<div class="field">
+					<label>Email</label>
+					<input type="email" placeholder="Your mail address" class="textbox"/>
+				</div>
+			</div>
+			<div class="popup-footer align-center">
+				<a href="" class="button primary">Create Account</a>
+				<br/>
+				<a href="" class="text-link">Cancel</a>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery-3.2.1.js" type="text/javascript"></script>
+	<script src="js/common.js" type="text/javascript"></script>
+</body>
+</html><?php */?>
+<?php require_once 'templates/footer.php';?>

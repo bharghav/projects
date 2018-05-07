@@ -78,7 +78,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/jquery-3.2.1.js" type="text/javascript"></script>
+	<!--script src="js/jquery-3.2.1.js" type="text/javascript"></script-->
 	<script src="js/common.js" type="text/javascript"></script>
 </body>
 </html>
